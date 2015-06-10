@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.sinaapp.mandyrobot</groupId>
-	<artifactId>mandyRobot</artifactId>
+	<groupId>com.mandy.weChatRobot</groupId>
+	<artifactId>weChatRobot</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>mandyRobot</name>
+	<name>weChatRobot</name>
 	<url>http://mandyrobot.sinaapp.com</url>
 
 	<!-- 属性配置 -->
@@ -95,7 +95,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>mandyrobot</finalName>
+		<finalName>weChatRobot</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -132,7 +132,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<warName>mandyrobot</warName>
+					<warName>weChatRobot</warName>
 				</configuration>
 			</plugin>
 		</plugins>
