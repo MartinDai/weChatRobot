@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.Formatter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 /** 微信相关工具类 */
 public class WeChatUtil {
@@ -51,9 +52,8 @@ public class WeChatUtil {
 		if (null == result) {
 			return null;
 		}
-		ObjectMapper objectMapper = new ObjectMapper();
-		JsonNode jsonNode = objectMapper.readTree(result);
-		accessToken = jsonNode.path("access_token").asText();
+		JSONObject obj = JSON.parseObject(result);
+		accessToken = obj.getString("access_token");
 		cacheTime = currentTime;
 		return accessToken;
 	}

@@ -75,11 +75,11 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-		<!-- jackson依赖包(用于json转换) -->
+		<!-- fastjson依赖包(用于json转换) -->
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.9</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.6</version>
 		</dependency>
 		<!-- dom4j依赖包(用于解析xml文件) -->
 		<dependency>
@@ -132,7 +132,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<warName>weChatRobot</warName>
+					<warName>mandyrobot</warName>
 				</configuration>
 			</plugin>
 		</plugins>

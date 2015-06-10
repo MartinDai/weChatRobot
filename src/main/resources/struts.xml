@@ -18,7 +18,7 @@
 	<!-- 是否开启动态方法调用 -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<!-- 配置Action类的包 -->
-	<constant name="struts.convention.action.packages" value="com.sinaapp.mandyrobot" />
+	<constant name="struts.convention.action.packages" value="com.mandy.wechatrobot" />
 	<!-- 是否每次HTTP请求到达时，系统都重新加载资源文件。默认值是false(生产环境下使用),开发阶段最好打开 -->
 	<constant name="struts.i18n.reload" value="true" />
 
