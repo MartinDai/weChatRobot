@@ -15,7 +15,4 @@
 1. 使用之前需要有微信公众号的帐号以及图灵机器人的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)和[图灵机器人帐号注册](http://www.tuling123.com/openapi/cloud/register.jsp),。
 2. 在src/main/resources目录下的config.properties文件里面配置相关的key。
 3. 发布到SAE的话需要把项目打包成war文件，然后删除xml-apis-1.0.b2.jar文件，这个包与SAE运行环境冲突。
-4. 微信公众号URL配置为`http://mandyrobot.sinaapp.com/weChat/receiveMessage.action`,其中`mandyrobot.sinaapp.com`是你自己的域名，token与`config.properties`文件配置一致即可。
-
-
-如有疑问，可联系<xiaomingys@gmail.com>
+4. 微信公众号URL配置为`http://robot.mandydai.com/weChat/receiveMessage.action`,其中`robot.mandydai.com`是你自己的域名，token与`config.properties`文件配置一致即可。
