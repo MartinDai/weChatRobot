@@ -6,11 +6,11 @@
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>weChatRobot</name>
-	<url>http://mandyrobot.sinaapp.com</url>
+	<url>http://robot.mandydai.com</url>
 
 	<!-- 属性配置 -->
 	<properties>
-		<jdk.version>1.6</jdk.version>
+		<jdk.version>1.7</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<struts.version>2.3.16</struts.version>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
@@ -30,14 +30,12 @@
 			<groupId>jetty</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5-6.0.2</version>
-			<scope>provided</scope>
 		</dependency>
 		<!-- jetty支持jsp依赖包 -->
 		<dependency>
 			<groupId>jetty</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1-6.0.2</version>
-			<scope>provided</scope>
 		</dependency>
 		<!-- struts2基本依赖包 -->
 		<dependency>
@@ -137,5 +135,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

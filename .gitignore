@@ -1,11 +1,5 @@
 # 以'#' 开始的行，被视为注释.
 # 忽略掉当前目录下文件夹名为target的文件夹.
 /target
-# 忽略掉所有文件夹名为.settings的文件夹.
-.settings/
-# 忽略掉所有文件名为.classpath的文件.
-.classpath
-# 忽略掉所有文件名为.project的文件.
-.project
-# 忽略掉所有文件名为.gitignore的文件.
-#.gitignore
+# 忽略掉所有后缀名为.iml的文件.
+*.iml
