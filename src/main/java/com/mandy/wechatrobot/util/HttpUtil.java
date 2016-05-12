@@ -182,7 +182,7 @@ public class HttpUtil {
 		DataInputStream dis = new DataInputStream(fileConn.getInputStream());
 		/* 设置每次写入8kb */
 		byte[] buf = new byte[1024 * 8];
-		int length = 0;
+		int length;
 		/* 从文件读取数据至缓冲区 */
 		while ((length = dis.read(buf)) != -1) {
 			/* 将数据写入DataOutputStream中 */
@@ -208,7 +208,7 @@ public class HttpUtil {
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(inputStream, "UTF-8"));
 		StringBuffer buffer = new StringBuffer();
-		String str = null;
+		String str;
 		while ((str = bufferedReader.readLine()) != null) {
 			buffer.append(str);
 		}
@@ -216,7 +216,7 @@ public class HttpUtil {
 		/* 释放资源 */
 		bufferedReader.close();
 		inputStream.close();
-		inputStream = null;
+		
 		return buffer.toString();
 	}
 
