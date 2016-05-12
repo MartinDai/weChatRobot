@@ -118,7 +118,7 @@ public final class HttpUtil {
 		conn.setConnectTimeout(10000);
 		/* 设置请求类型 */
 		conn.setRequestMethod(type);
-		if (type.toUpperCase().equals("POST")) {
+		if (type.equalsIgnoreCase("POST")) {
 			/* setRequestProperty */
 			conn.setRequestProperty("Connection", "Keep-Alive");
 			conn.setRequestProperty("Charset", "UTF-8");
@@ -232,13 +232,13 @@ public final class HttpUtil {
 	private static String getContentType(String fileExt) {
 		String contentType = "text/html; charset=UTF-8";
 		if (fileExt != null && fileExt.length() > 0) {
-			if (".jpg".equals(fileExt.toLowerCase()))
+			if (".jpg".equalsIgnoreCase(fileExt))
 				contentType = "image/jpeg";
-			else if (".amr".equals(fileExt.toLowerCase()))
+			else if (".amr".equalsIgnoreCase(fileExt))
 				contentType = "application/octet-stream";
-			else if (".mp3".equals(fileExt.toLowerCase()))
+			else if (".mp3".equalsIgnoreCase(fileExt))
 				contentType = "audio/mp3";
-			else if (".mp4".equals(fileExt.toLowerCase()))
+			else if (".mp4".equalsIgnoreCase(fileExt))
 				contentType = "video/mp4";
 			else
 				contentType = "application/octet-stream";
