@@ -9,11 +9,13 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
 /**
  * 配置加载类
  */
-public class PropertiesLoader {
+public final class PropertiesLoader {
 
 	private static Logger logger = LoggerFactory.getLogger(PropertiesLoader.class);
 	private static Properties properties = null;
-
+	
+    private PropertiesLoader(){}
+    
 	private static Properties getInterfaceProperties() {
 		if (properties == null) {
 			properties = new Properties();

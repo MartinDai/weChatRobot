@@ -11,7 +11,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-public class HttpUtil {
+public final class HttpUtil {
 
 	/** 上传文件时定义数据分隔符(可以随意更改) **/
 	private static String boundary = "thisIsBoundary";
@@ -19,7 +19,8 @@ public class HttpUtil {
 	private static String twoHyphens = "--";
 	/** 上传文件时结尾标识 **/
 	private static String end = "\r\n";
-
+	
+    private HttpUtil(){}
 	/**
 	 * 发起http post请求，支持添加文件参数
 	 * 

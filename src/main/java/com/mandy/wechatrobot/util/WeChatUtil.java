@@ -10,13 +10,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 /** 微信相关工具类 */
-public class WeChatUtil {
+public final class WeChatUtil {
 
 	/** 微信接口访问标记 **/
 	private static String accessToken = null;
 	/** 缓存时间 **/
 	private static Long cacheTime = null;
-
+    
+	private WeChatUtil(){}
 	/**
 	 * 验证微信消息合法性
 	 */
