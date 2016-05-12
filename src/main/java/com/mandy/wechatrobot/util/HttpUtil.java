@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public final class HttpUtil {
@@ -33,7 +34,7 @@ public final class HttpUtil {
 	 * @return 请求返回值
 	 */
 	public static String post(String requestUrl,
-			HashMap<String, String> fileMaps, HashMap<String, String> parameters) {
+			Map<String, String> fileMaps, Map<String, String> parameters) {
 		String result = null;
 		try {
 			/* 初始化连接 */
