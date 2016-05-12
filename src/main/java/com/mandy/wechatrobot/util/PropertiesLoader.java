@@ -13,7 +13,17 @@ public class PropertiesLoader {
 
 	private static Logger logger = LoggerFactory.getLogger(PropertiesLoader.class);
 	private static Properties properties = null;
+	/** 微信公众号appId **/
+	public static final String APP_ID = getInterfaceProperties().getProperty("appId");
+	/** 微信公众号appSecret **/
+	public static final String APP_SECRET = getInterfaceProperties().getProperty("appSecret");
+	/** 验证代理服务器是否可用的token,在微信开发者中心配置,为开发者随意填写 **/
+	public static final String TOKEN = getInterfaceProperties().getProperty("token");
+	/** 获取微信access_token的地址 **/
+	public static final String WEB_ACCESS_TOKEN_URL = getInterfaceProperties().getProperty("web_access_token_url");
 
+	/** 图灵帐号的apiKey **/
+	public static final String API_KEY = getInterfaceProperties().getProperty("apiKey");
 	private static Properties getInterfaceProperties() {
 		if (properties == null) {
 			properties = new Properties();
@@ -30,15 +40,5 @@ public class PropertiesLoader {
 		return getInterfaceProperties().getProperty(key);
 	}
 
-	/** 微信公众号appId **/
-	public static final String APP_ID = getInterfaceProperties().getProperty("appId");
-	/** 微信公众号appSecret **/
-	public static final String APP_SECRET = getInterfaceProperties().getProperty("appSecret");
-	/** 验证代理服务器是否可用的token,在微信开发者中心配置,为开发者随意填写 **/
-	public static final String TOKEN = getInterfaceProperties().getProperty("token");
-	/** 获取微信access_token的地址 **/
-	public static final String WEB_ACCESS_TOKEN_URL = getInterfaceProperties().getProperty("web_access_token_url");
-
-	/** 图灵帐号的apiKey **/
-	public static final String API_KEY = getInterfaceProperties().getProperty("apiKey");
+	
 }
