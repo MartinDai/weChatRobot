@@ -1,7 +1,7 @@
 package com.mandy.wechatrobot.util;
 
 /** 常量类 */
-public class Constants {
+public final class Constants {
 
 	/* GET或POST（必须大写，不可更改） */
 	public static final String GET = "GET";
@@ -56,5 +56,5 @@ public class Constants {
 
 	/** 图灵机器人接口地址 */
 	public final static String TURING_API_URL = "http://www.tuling123.com/openapi/api";
-
+	private Constants(){}
 }

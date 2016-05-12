@@ -23,8 +23,9 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 
-public class MessageUtil {
-
+public final class MessageUtil {
+	
+	private MessageUtil(){}
 	/** 扩展xstream，使其支持CDATA块 */
 	private static XStream xstream = new XStream(new XppDriver() {
 		public HierarchicalStreamWriter createWriter(Writer out) {
