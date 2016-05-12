@@ -9,13 +9,13 @@ import java.util.Date;
 public class BaseMessage {
 
 	/** 接收方帐号（收到的OpenID） **/
-	private String ToUserName;
+	private String toUserName;
 	/** 开发者微信号 **/
-	private String FromUserName;
+	private String fromUserName;
 	/** 消息创建时间 **/
-	private long CreateTime;
+	private long createTime;
 	/** 消息类型 **/
-	private String MsgType;
+	private String msgType;
 
 	public BaseMessage() {
 		super();
@@ -23,41 +23,41 @@ public class BaseMessage {
 
 	public BaseMessage(String fromUserName, String toUserName) {
 		super();
-		FromUserName = fromUserName;
-		ToUserName = toUserName;
-		CreateTime = new Date().getTime();
+		this.fromUserName = fromUserName;
+		this.toUserName = toUserName;
+		this.createTime = new Date().getTime();
 	}
 
 	public String getToUserName() {
-		return ToUserName;
+		return toUserName;
 	}
 
 	public void setToUserName(String toUserName) {
-		ToUserName = toUserName;
+		this.toUserName = toUserName;
 	}
 
 	public String getFromUserName() {
-		return FromUserName;
+		return fromUserName;
 	}
 
 	public void setFromUserName(String fromUserName) {
-		FromUserName = fromUserName;
+		this.fromUserName = fromUserName;
 	}
 
 	public long getCreateTime() {
-		return CreateTime;
+		return createTime;
 	}
 
 	public void setCreateTime(long createTime) {
-		CreateTime = createTime;
+		this.createTime = createTime;
 	}
 
 	public String getMsgType() {
-		return MsgType;
+		return msgType;
 	}
 
 	public void setMsgType(String msgType) {
-		MsgType = msgType;
+		this.msgType = msgType;
 	}
 
 }

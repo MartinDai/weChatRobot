@@ -10,9 +10,9 @@ import com.mandy.wechatrobot.util.Constants;
 public class NewsMessage extends BaseMessage {
 
 	/** 文章数量，限制为10条以内 **/
-	private int ArticleCount;
+	private int articleCount;
 	/** 文章列表默认第一个item为大图 **/
-	private List<Article> Articles;
+	private List<Article> articles;
 
 	public NewsMessage() {
 		super();
@@ -24,19 +24,19 @@ public class NewsMessage extends BaseMessage {
 	}
 
 	public int getArticleCount() {
-		return ArticleCount;
+		return articleCount;
 	}
 
 	public void setArticleCount(int articleCount) {
-		ArticleCount = articleCount;
+		this.articleCount = articleCount;
 	}
 
 	public List<Article> getArticles() {
-		return Articles;
+		return articles;
 	}
 
 	public void setArticles(List<Article> articles) {
-		Articles = articles;
+		this.articles = articles;
 	}
 
 }

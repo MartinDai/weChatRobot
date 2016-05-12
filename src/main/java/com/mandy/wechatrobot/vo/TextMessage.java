@@ -8,12 +8,12 @@ import com.mandy.wechatrobot.util.Constants;
 public class TextMessage extends BaseMessage {
 
 	/** 内容 **/
-	private String Content;
+	private String content;
 
 	public TextMessage(String fromUserName, String toUserName, String content) {
 		super(fromUserName, toUserName);
 		super.setMsgType(Constants.RESP_TEXT_TYPE);
-		this.Content = content;
+		this.content = content;
 	}
 
 	public TextMessage() {
@@ -21,11 +21,11 @@ public class TextMessage extends BaseMessage {
 	}
 
 	public String getContent() {
-		return Content;
+		return content;
 	}
 
 	public void setContent(String content) {
-		Content = content;
+		this.content = content;
 	}
 
 }
