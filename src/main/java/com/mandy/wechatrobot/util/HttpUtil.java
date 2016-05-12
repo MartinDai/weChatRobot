@@ -207,7 +207,7 @@ public class HttpUtil {
 			throws Exception {
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(inputStream, "UTF-8"));
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		String str = null;
 		while ((str = bufferedReader.readLine()) != null) {
 			buffer.append(str);
