@@ -32,7 +32,7 @@ public final class WeChatUtil {
 		for (String str : arr) {
 			content.append(str);
 		}
-		String tmpStr = "";
+		String tmpStr;
 		MessageDigest md = MessageDigest.getInstance("SHA-1");
 		byte[] digest = md.digest(content.toString().getBytes("UTF-8"));
 		tmpStr = byteToHex(digest);
