@@ -3,3 +3,5 @@
 /target
 # 忽略掉所有后缀名为.iml的文件.
 *.iml
+# 忽略掉IDEA产生的文件.
+.idea/
