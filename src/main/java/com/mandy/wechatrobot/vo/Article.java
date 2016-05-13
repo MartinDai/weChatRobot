@@ -5,44 +5,44 @@ package com.mandy.wechatrobot.vo;
  */
 public class Article {
 	/** 文章标题 **/
-	private String Title;
+	private String title;
 	/** 文章描述 **/
-	private String Description;
+	private String description;
 	/** 封面地址 **/
-	private String PicUrl;
+	private String picUrl;
 	/** 文章地址 **/
-	private String Url;
+	private String url;
 
 	public String getTitle() {
-		return Title;
+		return title;
 	}
 
 	public void setTitle(String title) {
-		Title = title;
+		this.title = title;
 	}
 
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 
 	public String getPicUrl() {
-		return PicUrl;
+		return picUrl;
 	}
 
 	public void setPicUrl(String picUrl) {
-		PicUrl = picUrl;
+		this.picUrl = picUrl;
 	}
 
 	public String getUrl() {
-		return Url;
+		return url;
 	}
 
 	public void setUrl(String url) {
-		Url = url;
+		this.url = url;
 	}
 
 }
