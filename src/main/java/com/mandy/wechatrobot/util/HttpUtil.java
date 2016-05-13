@@ -3,6 +3,7 @@ package com.mandy.wechatrobot.util;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -104,7 +105,7 @@ public class HttpUtil {
 	 * @return HttpURLConnection
 	 */
 	private static HttpURLConnection initHttpURLConnection(String requestUrl,
-			String type) throws Exception {
+			String type) throws IOException {
 		URL url = new URL(requestUrl);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -135,10 +136,10 @@ public class HttpUtil {
 	 *            参数name
 	 * @param value
 	 *            参数值
-	 * @throws Exception
+	 * @throws IOException
 	 */
 	private static void writeStringParams(DataOutputStream dos, String name,
-			String value) throws Exception {
+			String value) throws IOException {
 		dos.writeBytes(twoHyphens + boundary + end);
 		dos.writeBytes("Content-Disposition:form-data;name=\"" + name + "\""
 				+ end);
@@ -159,7 +160,7 @@ public class HttpUtil {
 	 * @throws Exception
 	 */
 	private static void writeFileParams(DataOutputStream dos, String name,
-			String fileUrlStr) throws Exception {
+			String fileUrlStr) throws IOException {
 		/* 建立文件获取连接 */
 		URL fileUrl = new URL(fileUrlStr);
 		URLConnection fileConn = fileUrl.openConnection();
@@ -195,7 +196,7 @@ public class HttpUtil {
 	/**
 	 * 请求输出结尾
 	 */
-	private static void paramsEnd(DataOutputStream dos) throws Exception {
+	private static void paramsEnd(DataOutputStream dos) throws IOException {
 		dos.writeBytes(twoHyphens + boundary + twoHyphens + end);
 		dos.writeBytes(end);
 	}
@@ -204,7 +205,7 @@ public class HttpUtil {
 	 * 把返回的输入流转换成字符串
 	 */
 	private static String getStringFromInputStream(InputStream inputStream)
-			throws Exception {
+			throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(inputStream, "UTF-8"));
 		StringBuffer buffer = new StringBuffer();
