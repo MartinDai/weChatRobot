@@ -8,6 +8,6 @@ import java.util.Map;
  */
 public interface WeChatMessageHandle {
 
-	public String processMessage(Map<String, String> parameters)
+	String processMessage(Map<String, String> parameters)
 			throws Exception;
 }
