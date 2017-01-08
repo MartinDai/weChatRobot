@@ -6,9 +6,9 @@
   
 ##框架和工具
 + Java版本&IDE：JDK1.6+Intellij IDEA
-+ 后端框架：springMVC3.2.4.RELEASE
++ 后端框架：SpringMVC3.2.4.RELEASE
 + Web容器：Jetty7.6.21.v20160908
-+ 构建工具：maven
++ 构建工具：Maven
 + 其他：FastJson,Log4j
 
 ##使用说明：
