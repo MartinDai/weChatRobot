@@ -1,13 +1,13 @@
 package com.mandy.wechatrobot.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.mandy.wechatrobot.constant.AppConstants;
+import org.apache.commons.lang.StringUtils;
+
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Formatter;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 
 /** 微信相关工具类 */
 public final class WeChatUtil {
@@ -25,7 +25,7 @@ public final class WeChatUtil {
 		if (signature == null || timestamp == null || nonce == null) {
 			return false;
 		}
-		String[] arr = new String[] { PropertiesLoader.TOKEN, timestamp, nonce };
+		String[] arr = new String[] { AppConstants.TOKEN, timestamp, nonce };
 		// 将token、timestamp、nonce三个参数进行字典序排序
 		Arrays.sort(arr);
 		StringBuilder content = new StringBuilder();
@@ -47,8 +47,8 @@ public final class WeChatUtil {
 		if (!StringUtils.isEmpty(accessToken) && cacheTime != null && (currentTime - cacheTime) < 3600) {
 			return accessToken;
 		}
-		String requestUrl = Constants.ACCESS_TOKEN_URL.replace("APPID", PropertiesLoader.APP_ID).replace("APPSECRET",
-				PropertiesLoader.APP_SECRET);
+		String requestUrl = Constants.ACCESS_TOKEN_URL.replace("APPID", AppConstants.APP_ID).replace("APPSECRET",
+				AppConstants.APP_SECRET);
 		String result = HttpUtil.get(requestUrl);
 		if (null == result) {
 			return null;

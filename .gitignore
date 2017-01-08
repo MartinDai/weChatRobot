@@ -5,3 +5,4 @@
 *.iml
 # 忽略掉IDEA产生的文件.
 .idea/
+logs/

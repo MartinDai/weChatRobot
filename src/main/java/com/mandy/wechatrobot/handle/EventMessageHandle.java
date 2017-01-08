@@ -1,17 +1,16 @@
 package com.mandy.wechatrobot.handle;
 
-import java.util.Map;
-
-import org.springframework.stereotype.Service;
-
 import com.mandy.wechatrobot.util.Constants;
 import com.mandy.wechatrobot.util.MessageUtil;
 import com.mandy.wechatrobot.vo.TextMessage;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * 处理事件类型消息
  */
-@Service("eventMessageHandle")
+@Service
 public class EventMessageHandle implements WeChatMessageHandle {
 
 	@Override
