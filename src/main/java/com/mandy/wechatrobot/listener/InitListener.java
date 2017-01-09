@@ -30,7 +30,7 @@ public class InitListener implements ServletContextListener {
         AppConstants.APP_ID = properties.getProperty("appId");
         AppConstants.APP_SECRET = properties.getProperty("appSecret");
         AppConstants.TOKEN = properties.getProperty("token");
-        AppConstants.API_KEY = properties.getProperty("appKey");
+        AppConstants.API_KEY = properties.getProperty("apiKey");
 
     }
 
