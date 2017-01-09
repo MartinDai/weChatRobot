@@ -17,19 +17,10 @@
         <param-value>classpath:log4j-server.xml</param-value>
     </context-param>
 
-    <filter>
-        <filter-name>encodingfilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>encodingfilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
+    <!-- 防止内存泄漏监听 -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
     <!-- 添加log4j配置监听 -->
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
@@ -42,6 +33,19 @@
     <listener>
         <listener-class>com.mandy.wechatrobot.listener.InitListener</listener-class>
     </listener>
+
+    <filter>
+        <filter-name>encodingfilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingfilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <!-- 配置spring mvc -->
     <servlet>

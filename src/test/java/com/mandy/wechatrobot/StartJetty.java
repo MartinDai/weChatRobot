@@ -14,8 +14,6 @@ import org.springframework.core.io.support.ResourcePatternResolver;
  */
 public class StartJetty {
 
-    private static String WEBAPP = "Start";
-
     private static int JETTY_SERVER_PORT = 8080;
 
     private static ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
