@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/weChat")
 public class MainController {
 
-    private static Logger logger = Logger.getLogger(MainController.class);
+    private static Logger LOGGER = Logger.getLogger(MainController.class);
 
     @Resource
     private WeChatMessageHandle eventMessageHandle;
@@ -33,23 +34,19 @@ public class MainController {
      **/
     @RequestMapping("receiveMessage")
     public void receiveMessage(String signature, String timestamp, String nonce, String echostr, HttpServletRequest request, HttpServletResponse response) {
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = null;
         String fromUserName = null;
         String toUserName = null;
         try {
-            out = response.getWriter();
             if (Constants.GET.equals(request.getMethod())) {
                 // 验证签名是否有效
                 if (WeChatUtil.checkSignature(signature, timestamp, nonce)) {
-                    out.write(echostr);
+                    writeText(echostr, response);
                 } else {
-                    out.write("");
+                    writeText("你是谁？你想干嘛？", response);
                 }
             } else {
                 String result;
-                Map<String, String> parameters = MessageUtil.parseXml(request
-                        .getInputStream());
+                Map<String, String> parameters = MessageUtil.parseXml(request.getInputStream());
                 fromUserName = parameters.get("FromUserName");
                 toUserName = parameters.get("ToUserName");
                 String msgType = parameters.get("MsgType");
@@ -60,16 +57,29 @@ public class MainController {
                 } else {
                     result = MessageUtil.ObjectToXml(new TextMessage(toUserName, fromUserName, "我只对文字感兴趣[悠闲]"));
                 }
-                out.write(result);
+
+                writeText(result, response);
             }
         } catch (Exception e) {
-            logger.error("接收来至微信服务器的消息出现错误", e);
-            if (out != null) {
-                out.write(MessageUtil.ObjectToXml(new TextMessage(toUserName,
-                        fromUserName, "我竟无言以对！")));
-            }
+            LOGGER.error("接收来至微信服务器的消息出现错误", e);
+            writeText(MessageUtil.ObjectToXml(new TextMessage(toUserName,
+                    fromUserName, "我竟无言以对！")), response);
+        }
+
+    }
+
+    private void writeText(String content, HttpServletResponse response) {
+        Writer writer = null;
+        try {
+            response.setContentType("text/html");
+            response.setCharacterEncoding("UTF-8");
+            writer = response.getWriter();
+            writer.write(content);
+            writer.flush();
+        } catch (IOException e) {
+            LOGGER.error("响应客户端文本内容出现异常", e);
         } finally {
-            IOUtils.close(out);
+            IOUtils.close(writer);
         }
     }
 

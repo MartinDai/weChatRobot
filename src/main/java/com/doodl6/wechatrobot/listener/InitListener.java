@@ -13,10 +13,7 @@ import java.util.Properties;
  */
 public class InitListener implements ServletContextListener {
 
-    private static Logger logger = Logger.getLogger(InitListener.class);
-
-    public void contextDestroyed(ServletContextEvent sce) {
-    }
+    private static Logger LOGGER = Logger.getLogger(InitListener.class);
 
     public void contextInitialized(ServletContextEvent sce) {
 
@@ -24,7 +21,7 @@ public class InitListener implements ServletContextListener {
         try {
             properties.load(InitListener.class.getClassLoader().getResourceAsStream("app.properties"));
         } catch (IOException e) {
-            logger.error("加载config.properties出错！");
+            LOGGER.error("加载config.properties出错！");
         }
 
         AppConstants.APP_ID = properties.getProperty("appId");
@@ -32,6 +29,9 @@ public class InitListener implements ServletContextListener {
         AppConstants.TOKEN = properties.getProperty("token");
         AppConstants.API_KEY = properties.getProperty("apiKey");
 
+    }
+
+    public void contextDestroyed(ServletContextEvent sce) {
     }
 
 }

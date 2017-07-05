@@ -41,8 +41,6 @@
                 <property name="features">
                     <!--这个地方加上这个功能吧，能自己配置一些东西，比如时间的格式化，null输出""等等-->
                     <list>
-                        <!--配置这个 会把nul输出-->
-                        <!--<value>WriteMapNullValue</value>-->
                         <value>QuoteFieldNames</value>
                         <!--关闭循环引用-->
                         <value>DisableCircularReferenceDetect</value>
