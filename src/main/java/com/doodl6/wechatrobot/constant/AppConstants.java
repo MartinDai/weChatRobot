@@ -1,4 +1,4 @@
-package com.mandy.wechatrobot.constant;
+package com.doodl6.wechatrobot.constant;
 
 /**
  * 应用常量类

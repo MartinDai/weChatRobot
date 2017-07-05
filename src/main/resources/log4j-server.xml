@@ -7,7 +7,7 @@
         <param name="File" value="${webapp.root}/logs/biz/biz.log"/>
         <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
         <param name="Append" value="true"/>
-        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'"/>
         <param name="MaxBackupIndex" value="10"/>
         <param name="MaxFileSize" value="4MB"/>
         <param name="encoding" value="utf-8"/>
@@ -21,31 +21,15 @@
         <param name="File" value="${webapp.root}/logs/error/error.log"/>
         <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
         <param name="Append" value="true"/>
-        <param name="DatePattern" value="yyyy-MM-dd'.html'"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd.HH'.log'"/>
         <param name="MaxBackupIndex" value="20"/>
         <param name="MaxFileSize" value="4MB"/>
         <param name="encoding" value="utf-8"/>
+        <layout class="com.doodl6.wechatrobot.helper.MyHtmlLayoutHelper">
+        </layout>
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMin" value="ERROR"/>
             <param name="LevelMax" value="ERROR"/>
-        </filter>
-    </appender>
-
-    <!-- Info Warn 日志 -->
-    <appender name="info_appender" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="${webapp.root}/logs/info/info.log"/>
-        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
-        <param name="Append" value="true"/>
-        <param name="DatePattern" value="yyyy-MM-dd'.html'"/>
-        <param name="MaxBackupIndex" value="20"/>
-        <param name="MaxFileSize" value="4MB"/>
-        <param name="encoding" value="utf-8"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[date:%d{yyyy-MM-dd HH:mm:ss}] %m%n"/>
-        </layout>
-        <filter class="org.apache.log4j.varia.LevelRangeFilter">
-            <param name="LevelMin" value="INFO"/>
-            <param name="LevelMax" value="WARN"/>
         </filter>
     </appender>
 
@@ -60,7 +44,6 @@
         <priority value="INFO"/>
         <appender-ref ref="console_appender"/>
         <appender-ref ref="biz_appender"/>
-        <appender-ref ref="info_appender"/>
         <appender-ref ref="error_appender"/>
     </root>
 

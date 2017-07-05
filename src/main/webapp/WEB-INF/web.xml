@@ -31,11 +31,11 @@
     </listener>
     <!-- 添加初始化监听 -->
     <listener>
-        <listener-class>com.mandy.wechatrobot.listener.InitListener</listener-class>
+        <listener-class>com.doodl6.wechatrobot.listener.InitListener</listener-class>
     </listener>
 
     <filter>
-        <filter-name>encodingfilter</filter-name>
+        <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
@@ -43,7 +43,7 @@
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>encodingfilter</filter-name>
+        <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -60,10 +60,6 @@
     <servlet-mapping>
         <servlet-name>mvc-servlet</servlet-name>
         <url-pattern>*.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>mvc-servlet</servlet-name>
-        <url-pattern>*.action</url-pattern>
     </servlet-mapping>
 
     <!-- 配置首页 -->

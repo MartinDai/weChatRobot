@@ -1,4 +1,4 @@
-package com.mandy.wechatrobot;
+package com.doodl6.wechatrobot;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.util.component.AbstractLifeCycle;
@@ -25,7 +25,7 @@ public class StartJetty {
             server.addLifeCycleListener(new AbstractLifeCycle.AbstractLifeCycleListener() {
                 @Override
                 public void lifeCycleStarted(LifeCycle event) {
-                    System.err.println("----------weChatRobot Webapp is started! PORT:" + JETTY_SERVER_PORT + "----------");
+                    System.err.println("----------weChatRobot WebApp is started! PORT:" + JETTY_SERVER_PORT + "----------");
                 }
             });
 
