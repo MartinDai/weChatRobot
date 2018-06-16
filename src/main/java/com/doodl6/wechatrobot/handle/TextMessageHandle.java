@@ -1,8 +1,9 @@
 package com.doodl6.wechatrobot.handle;
 
 import com.doodl6.wechatrobot.constant.AppConstants;
-import com.doodl6.wechatrobot.util.HttpUtil;
 import com.doodl6.wechatrobot.util.Constants;
+import com.doodl6.wechatrobot.util.HttpUtil;
+import com.doodl6.wechatrobot.util.LogUtil;
 import com.doodl6.wechatrobot.util.MessageUtil;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,10 @@ import java.util.Map;
 public class TextMessageHandle implements WeChatMessageHandle {
 
     @Override
-    public String processMessage(final Map<String, String> parameters)
-            throws Exception {
+    public String processMessage(final Map<String, String> parameters) throws Exception {
+
+        LOGGER.info(LogUtil.buildLog("收到用户文本信息", parameters));
+
         String fromUserName = parameters.get("FromUserName");
         String toUserName = parameters.get("ToUserName");
         String content = parameters.get("Content");
