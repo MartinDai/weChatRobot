@@ -6,7 +6,8 @@ import com.doodl6.wechatrobot.util.Constants;
 import com.doodl6.wechatrobot.util.MessageUtil;
 import com.doodl6.wechatrobot.util.WeChatUtil;
 import com.doodl6.wechatrobot.vo.TextMessage;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 @RequestMapping("/weChat")
 public class MainController {
 
-    private static Logger LOGGER = Logger.getLogger(MainController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
     @Resource
     private WeChatMessageHandle eventMessageHandle;

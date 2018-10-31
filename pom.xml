@@ -6,7 +6,7 @@
     <packaging>war</packaging>
     <version>1.0</version>
     <name>weChatRobot</name>
-    <url>http://robot.doodl6.com</url>
+    <url>http://wechatrobot.doodl6.com</url>
 
     <!-- 属性配置 -->
     <properties>
@@ -15,6 +15,7 @@
         <junit.version>4.12</junit.version>
         <spring.version>3.2.4.RELEASE</spring.version>
         <jetty.version>7.6.21.v20160908</jetty.version>
+        <slf4j.version>1.7.21</slf4j.version>
     </properties>
 
     <repositories>
@@ -95,6 +96,18 @@
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>1.4.8</version>
+        </dependency>
+
+        <!-- 日志依赖包 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>

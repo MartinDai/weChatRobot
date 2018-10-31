@@ -1,4 +1,4 @@
-package com.doodl6.wechatrobot.helper;
+package com.doodl6.wechatrobot.layout;
 
 import org.apache.log4j.HTMLLayout;
 import org.apache.log4j.Layout;
@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 /**
  * 日志格式类
  */
-public class MyHtmlLayoutHelper extends HTMLLayout {
+public class ErrorLogLayout extends HTMLLayout {
 
     private final int BUF_SIZE = 256;
 
