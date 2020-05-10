@@ -10,7 +10,7 @@
 + JDK 1.8
 + SpringBoot 2.2.6.RELEASE
 + FastJson
-+ Log4j + Slf4j
++ Log4j2 + Slf4j
 
 ## 使用说明：
 1. 使用之前需要有微信公众号的帐号以及图灵机器人的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)和[图灵机器人帐号注册](http://tuling123.com/register/email.jhtml),。
