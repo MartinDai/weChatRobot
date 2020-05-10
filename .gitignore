@@ -5,3 +5,5 @@
 # 忽略日志文件
 logs/
 *.log
+/robot-web/target/
+/robot-common/target/

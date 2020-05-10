@@ -24,11 +24,8 @@
         <springboot.version>2.2.6.RELEASE</springboot.version>
         <fastjson.version>1.2.67</fastjson.version>
         <junit.version>4.12</junit.version>
-        <log4j.version>1.2.16</log4j.version>
-        <slf4j.version>1.7.26</slf4j.version>
         <guava.version>27.1-jre</guava.version>
         <commons.lang3.version>3.7</commons.lang3.version>
-        <commons.io.version>2.6</commons.io.version>
     </properties>
 
     <repositories>
@@ -53,11 +50,23 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${springboot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                        <groupId>org.springframework.boot</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-tomcat</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
 
@@ -98,17 +107,6 @@
                 <version>1.4.8</version>
             </dependency>
 
-            <!-- 日志依赖包 -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -118,11 +116,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons.lang3.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons.io.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
