@@ -1,7 +1,7 @@
 # weChatRobot
 一个简单的智能聊天机器人项目，基于微信公众号和图灵机器人开发。
 
-![qrcode](robot-web/src/main/webapp/images/qrcode.jpg "扫码关注，体验智能机器人")
+![qrcode](robot-web/src/main/resources/static/images/qrcode.jpg "扫码关注，体验智能机器人")
 
 ## 功能介绍：
   本项目是一个微信公众号项目，需配合微信公众号使用，在微信公众号配置本项目运行的服务器域名，用户关注公众号后，向公众号发送任意信息，公众号会根据用户发送的内容自动回复。
