@@ -38,6 +38,13 @@
                 <configuration>
                     <mainClass>com.doodl6.wechatrobot.WebStarter</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
