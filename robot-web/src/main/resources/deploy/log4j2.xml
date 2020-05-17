@@ -10,10 +10,6 @@
     </Properties>
 
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT" follow="true">
-            <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" />
-        </Console>
-
         <RollingFile name="InfoRollingFile" fileName="logs/info/info.log"
                      filePattern="logs/info/info-%d{yyyy-MM-dd}-%i.log">
             <!--ThresholdFilter :日志输出过滤-->
@@ -44,7 +40,6 @@
 
     <Loggers>
         <Root level="info">
-            <AppenderRef ref="Console"/>
             <AppenderRef ref="InfoRollingFile"/>
             <AppenderRef ref="ErrorRollingFile"/>
         </Root>

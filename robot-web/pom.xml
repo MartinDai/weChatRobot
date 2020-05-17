@@ -28,8 +28,42 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <activeProfile>dev</activeProfile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>deploy</id>
+            <properties>
+                <activeProfile>deploy</activeProfile>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>weChatRobot</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${activeProfile}</directory>
+                <includes>
+                    <include>log4j2.xml</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <!--该插件主要用途：构建可执行的JAR -->

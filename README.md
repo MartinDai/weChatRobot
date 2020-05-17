@@ -17,7 +17,8 @@
 2. 在src/main/resources目录下的application.yml文件里面配置相关的key。
 3. 微信公众号URL配置为`http://robot.doodl6.com/weChat/receiveMessage`,其中`robot.doodl6.com`是你自己的域名，token与`application.yml`文件配置一致即可。
 4. 本地启动入口：com.doodl6.wechatrobot.WebStarter直接运行
-5. jar包运行：本地打包得到weChatRobot.jar这个文件，使用命令`java -jar weChatRobot.jar`即可运行
+5. 本地jar包运行：本地打包得到weChatRobot.jar这个文件，使用命令`java -jar weChatRobot.jar`即可运行，
+6. 服务器jar包部署，使用使用命令`mvn clean install -P deploy`打包得到jar文件，上传到服务器后使用命令`nohup java -jar weChatRobot.jar > ./console.log &`在后台运行，在执行命令的当前目录查看console日志以及logs目录查看业务日志
 
 ## 支持的功能
 * [x] 自动回复文本消息，回复内容来自于图灵机器人
