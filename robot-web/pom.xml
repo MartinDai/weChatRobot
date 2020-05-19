@@ -58,6 +58,10 @@
                 </includes>
             </resource>
             <resource>
+                <directory>src/main/resources/static</directory>
+                <targetPath>static</targetPath>
+            </resource>
+            <resource>
                 <directory>src/main/resources/${activeProfile}</directory>
                 <includes>
                     <include>log4j2.xml</include>
