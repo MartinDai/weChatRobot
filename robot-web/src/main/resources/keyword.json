@@ -1,0 +1,18 @@
+{
+  "你是谁": {
+    "type": "text",
+    "Content": "我是小明的私人管家"
+  },
+  "JVM参数": {
+    "type": "news",
+    "ArticleCount": 1,
+    "Articles": [
+      {
+        "Title": "JVM参数使用手册",
+        "Description": "JVM提供了大量的参数配置，可以通过配置这些参数对JVM进行调优、记录GC日志等等",
+        "PicUrl": "http://mmbiz.qpic.cn/sz_mmbiz_jpg/QLaVCssAVyhFQIq66BXZ1gM26ibEziax8gV8mo66DDZ0icIf9MwqHeRbiaStsBuCT1wniajakTMjjgia4SM28SVemb1A/0?wx_fmt=jpeg",
+        "Url": "https://mp.weixin.qq.com/s/65F6JztQxvxqO0beNbklIw"
+      }
+    ]
+  }
+}
