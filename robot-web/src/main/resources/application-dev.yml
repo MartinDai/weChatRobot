@@ -1,0 +1,4 @@
+keyword:
+  location:
+    version: classpath:/keyword_version.txt
+    message: classpath:/keyword.json

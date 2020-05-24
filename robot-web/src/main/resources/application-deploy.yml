@@ -1,0 +1,4 @@
+keyword:
+  location:
+    version: https://github.com/MartinDai/weChatRobot/raw/master/robot-web/src/main/resources/keyword_version.txt
+    message: https://github.com/MartinDai/weChatRobot/raw/master/robot-web/src/main/resources/keyword.json

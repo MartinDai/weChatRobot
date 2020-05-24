@@ -1,8 +1,8 @@
 package com.doodl6.wechatrobot.response;
 
 
+import com.doodl6.wechatrobot.enums.MessageType;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -10,7 +10,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 public class TextMessage extends BaseMessage {
 
     /**
@@ -18,10 +17,20 @@ public class TextMessage extends BaseMessage {
      **/
     private String Content;
 
-    public TextMessage(String fromUserName, String toUserName, String content) {
-        super(fromUserName, toUserName);
-        setMsgType("text");
+    public TextMessage() {
+        super();
+        setMsgType(MessageType.TEXT.getValue());
+    }
+
+    public TextMessage(String content) {
+        this();
         this.Content = content;
     }
 
+    public TextMessage(String fromUserName, String toUserName, String content) {
+        this(content);
+        setFromUserName(fromUserName);
+        setToUserName(toUserName);
+        setCreateTime(System.currentTimeMillis());
+    }
 }

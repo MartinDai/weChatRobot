@@ -26,6 +26,11 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -37,6 +42,17 @@
             <properties>
                 <activeProfile>dev</activeProfile>
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                            <include>keyword.json</include>
+                            <include>keyword_version.txt</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </build>
         </profile>
 
         <profile>
@@ -55,6 +71,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>application.yml</include>
+                    <include>application-${activeProfile}.yml</include>
                 </includes>
             </resource>
             <resource>

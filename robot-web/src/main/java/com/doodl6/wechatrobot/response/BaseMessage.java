@@ -25,18 +25,11 @@ public class BaseMessage {
     /**
      * 消息创建时间
      **/
-    private long CreateTime;
+    private Long CreateTime;
 
     /**
      * 消息类型
      **/
     private String MsgType;
-
-    public BaseMessage(String fromUserName, String toUserName) {
-        super();
-        FromUserName = fromUserName;
-        ToUserName = toUserName;
-        CreateTime = System.currentTimeMillis();
-    }
 
 }

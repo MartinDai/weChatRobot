@@ -1,5 +1,9 @@
 package com.doodl6.wechatrobot.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -8,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
 
+@Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class HttpUtil {
 
     /**
@@ -22,9 +28,6 @@ public final class HttpUtil {
      * 上传文件时结尾标识
      **/
     private static final String END = "\r\n";
-
-    private HttpUtil() {
-    }
 
     /**
      * 发起http post请求，支持添加文件参数
@@ -68,8 +71,9 @@ public final class HttpUtil {
             result = getStringFromInputStream(inputStream);
             httpUrlConn.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("post请求异常", e);
         }
+
         return result;
     }
 
@@ -91,8 +95,9 @@ public final class HttpUtil {
             result = getStringFromInputStream(inputStream);
             httpUrlConn.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("get请求异常", e);
         }
+
         return result;
     }
 

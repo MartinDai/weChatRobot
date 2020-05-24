@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.doodl6.wechatrobot.config.AppConfig;
 import com.doodl6.wechatrobot.constant.TulingConstants;
 import com.doodl6.wechatrobot.response.Article;
+import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.NewsMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
 import com.doodl6.wechatrobot.util.HttpUtil;
@@ -29,50 +30,50 @@ public class TulingService {
     /**
      * 获取图灵机器人消息响应
      */
-    public Object getTulingResponse(String content, String fromUserName, String toUserName) {
+    public BaseMessage getTulingResponse(String content, String fromUserName) {
         String info = new String(content.getBytes(), StandardCharsets.UTF_8);
         String requestUrl = API_URL + "?key=" + appConfig.getApiKey() + "&info=" + info + "&userid=" + fromUserName;
         String result = HttpUtil.get(requestUrl);
-        return processTuRingResult(result, toUserName, fromUserName);
+        return processTuRingResult(result);
     }
 
     /**
      * 处理图灵机器人返回的结果
      */
-    private static Object processTuRingResult(String result, String fromUserName, String toUserName) {
+    private static BaseMessage processTuRingResult(String result) {
         JSONObject rootObj = JSON.parseObject(result);
         int code = rootObj.getIntValue("code");
         if (TulingConstants.TEXT_CODE.equals(code)) {
-            return new TextMessage(fromUserName, toUserName, rootObj.getString("text"));
+            return new TextMessage(rootObj.getString("text"));
         } else if (TulingConstants.LINK_CODE.equals(code)) {
-            return new TextMessage(fromUserName, toUserName, "<a href='" + rootObj.getString("url") + "'>"
+            return new TextMessage("<a href='" + rootObj.getString("url") + "'>"
                     + rootObj.getString("text") + "</a>");
         } else if (TulingConstants.NEWS_CODE.equals(code) || TulingConstants.TRAIN_CODE.equals(code)
                 || TulingConstants.FLIGHT_CODE.equals(code) || TulingConstants.MENU_CODE.equals(code)) {
-            NewsMessage news = new NewsMessage(fromUserName, toUserName);
             List<JSONObject> list = JSON.parseArray(rootObj.getString("list"), JSONObject.class);
-            assembleNews(news, list, code);
-            return news;
+            List<Article> articles = convertToArticles(list, code);
+            return new NewsMessage(articles);
         } else if (TulingConstants.LENGTH_WRONG_CODE.equals(code) || TulingConstants.KEY_WRONG_CODE.equals(code)) {
-            return new TextMessage(fromUserName, toUserName, "我现在想一个人静一静,请等下再跟我聊天");
+            return new TextMessage("我现在想一个人静一静,请等下再跟我聊天");
         } else if (TulingConstants.EMPTY_CONTENT_CODE.equals(code)) {
-            return new TextMessage(fromUserName, toUserName, "你不说话,我也没什么好说的");
+            return new TextMessage("你不说话,我也没什么好说的");
         } else if (TulingConstants.NUMBER_DONE_CODE.equals(code)) {
-            return new TextMessage(fromUserName, toUserName, "我今天有点累了,明天再找我聊吧！");
+            return new TextMessage("我今天有点累了,明天再找我聊吧！");
         } else if (TulingConstants.NOT_SUPPORT_CODE.equals(code)) {
-            return new TextMessage(fromUserName, toUserName, "这个我还没学会,我以后会慢慢学的");
+            return new TextMessage("这个我还没学会,我以后会慢慢学的");
         } else if (TulingConstants.UPGRADE_CODE.equals(code)) {
-            return new TextMessage(fromUserName, toUserName, "我经验值满了,正在升级中...");
+            return new TextMessage("我经验值满了,正在升级中...");
         } else if (TulingConstants.DATA_EXCEPTION_CODE.equals(code)) {
-            return new TextMessage(fromUserName, toUserName, "你都干了些什么,我怎么话都说不清楚了");
+            return new TextMessage("你都干了些什么,我怎么话都说不清楚了");
         }
+
         return null;
     }
 
     /**
-     * 根据消息类型组装图文消息
+     * 根据消息类型转换文章列表
      */
-    private static void assembleNews(NewsMessage news, List<JSONObject> list, int code) {
+    private static List<Article> convertToArticles(List<JSONObject> list, int code) {
         String titleKey = "article";
         String descriptionKey = "article";
         if (TulingConstants.MENU_CODE.equals(code)) {
@@ -101,7 +102,7 @@ public class TulingService {
                 break;
             }
         }
-        news.setArticles(articles);
-        news.setArticleCount(articles.size());
+
+        return articles;
     }
 }

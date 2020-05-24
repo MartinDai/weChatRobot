@@ -25,6 +25,8 @@
         <fastjson.version>1.2.67</fastjson.version>
         <guava.version>27.1-jre</guava.version>
         <commons.lang3.version>3.7</commons.lang3.version>
+        <commons.io.version>2.6</commons.io.version>
+        <httpclient.version>4.5.12</httpclient.version>
         <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
@@ -119,10 +121,23 @@
             </dependency>
 
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
