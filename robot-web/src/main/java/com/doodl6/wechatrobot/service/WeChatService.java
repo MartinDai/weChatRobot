@@ -1,6 +1,7 @@
 package com.doodl6.wechatrobot.service;
 
 import com.doodl6.wechatrobot.config.AppConfig;
+import com.doodl6.wechatrobot.domain.WeChatMessage;
 import com.doodl6.wechatrobot.enums.WeChatMsgType;
 import com.doodl6.wechatrobot.handle.WeChatMessageHandle;
 import com.doodl6.wechatrobot.response.TextMessage;
@@ -9,11 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Formatter;
-import java.util.Map;
 
 /**
  * 微信服务类
@@ -60,22 +61,23 @@ public class WeChatService {
     /**
      * 处理收到的消息
      */
-    public String processReceived(Map<String, String> parameters) {
+    public String processReceived(InputStream inputStream) {
         String result;
-        String fromUserName = parameters.get("FromUserName");
-        String toUserName = parameters.get("ToUserName");
+        WeChatMessage weChatMessage = MessageUtil.parseWeChatMessage(inputStream);
+        String fromUserName = weChatMessage.getFromUserName();
+        String toUserName = weChatMessage.getToUserName();
         try {
-            WeChatMsgType msgType = WeChatMsgType.findByValue(parameters.get("MsgType"));
+            WeChatMsgType msgType = WeChatMsgType.findByValue(weChatMessage.getMsgType());
             if (msgType == WeChatMsgType.EVENT) {
-                result = eventMessageHandle.processMessage(parameters);
+                result = eventMessageHandle.processMessage(weChatMessage);
             } else if (msgType == WeChatMsgType.TEXT) {
-                result = textMessageHandle.processMessage(parameters);
+                result = textMessageHandle.processMessage(weChatMessage);
             } else {
-                result = MessageUtil.ObjectToXml(new TextMessage(toUserName, fromUserName, "我只对文字感兴趣[悠闲]"));
+                result = MessageUtil.toXml(new TextMessage(toUserName, fromUserName, "我只对文字感兴趣[悠闲]"));
             }
         } catch (Exception e) {
             log.error("处理来至微信服务器的消息出现错误", e);
-            result = MessageUtil.ObjectToXml(new TextMessage(toUserName,
+            result = MessageUtil.toXml(new TextMessage(toUserName,
                     fromUserName, "我竟无言以对！"));
         }
 

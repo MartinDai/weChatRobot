@@ -85,24 +85,7 @@
                 <version>${fastjson.version}</version>
             </dependency>
 
-            <!-- dom4j依赖包(用于解析xml文件) -->
-            <dependency>
-                <groupId>dom4j</groupId>
-                <artifactId>dom4j</artifactId>
-                <version>1.6</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>xml-apis</artifactId>
-                        <groupId>xml-apis</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>xml-apis</groupId>
-                <artifactId>xml-apis</artifactId>
-                <version>1.0.b2</version>
-            </dependency>
-            <!-- xstream依赖包(用于解析xml文件) -->
+            <!-- 用于解析xml文件 -->
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>

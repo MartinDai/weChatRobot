@@ -1,6 +1,7 @@
 package com.doodl6.wechatrobot.handle;
 
 import com.doodl6.wechatrobot.config.KeywordConfig;
+import com.doodl6.wechatrobot.domain.WeChatMessage;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.service.TulingService;
 import com.doodl6.wechatrobot.util.LogUtil;
@@ -9,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * 文本类型消息处理类
@@ -25,13 +25,13 @@ public class TextMessageHandle implements WeChatMessageHandle {
     private KeywordConfig keywordConfig;
 
     @Override
-    public String processMessage(final Map<String, String> parameters) {
+    public String processMessage(WeChatMessage weChatMessage) {
 
-        log.info(LogUtil.buildLog("收到用户文本信息", parameters));
+        log.info(LogUtil.buildLog("收到用户文本信息", weChatMessage));
 
-        String fromUserName = parameters.get("FromUserName");
-        String toUserName = parameters.get("ToUserName");
-        String content = parameters.get("Content");
+        String fromUserName = weChatMessage.getFromUserName();
+        String toUserName = weChatMessage.getToUserName();
+        String content = weChatMessage.getContent();
 
         BaseMessage message = keywordConfig.getMessageByKeyword(content);
         if (message == null) {
@@ -43,6 +43,6 @@ public class TextMessageHandle implements WeChatMessageHandle {
             message.setToUserName(fromUserName);
             message.setCreateTime(System.currentTimeMillis());
         }
-        return MessageUtil.ObjectToXml(message);
+        return MessageUtil.toXml(message);
     }
 }

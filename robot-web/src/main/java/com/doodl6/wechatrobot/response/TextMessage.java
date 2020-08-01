@@ -2,6 +2,7 @@ package com.doodl6.wechatrobot.response;
 
 
 import com.doodl6.wechatrobot.enums.MessageType;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,21 +11,18 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@XStreamAlias("xml")
 public class TextMessage extends BaseMessage {
 
     /**
      * 内容
      **/
-    private String Content;
-
-    public TextMessage() {
-        super();
-        setMsgType(MessageType.TEXT.getValue());
-    }
+    @XStreamAlias("Content")
+    private String content;
 
     public TextMessage(String content) {
-        this();
-        this.Content = content;
+        setMsgType(MessageType.TEXT.getValue());
+        this.content = content;
     }
 
     public TextMessage(String fromUserName, String toUserName, String content) {

@@ -1,6 +1,7 @@
 package com.doodl6.wechatrobot.response;
 
 import com.doodl6.wechatrobot.enums.MessageType;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.Assert;
@@ -12,17 +13,20 @@ import java.util.List;
  */
 @Getter
 @Setter
+@XStreamAlias("xml")
 public class NewsMessage extends BaseMessage {
 
     /**
      * 文章数量，限制为10条以内
      **/
-    private int ArticleCount;
+    @XStreamAlias("ArticleCount")
+    private int articleCount;
 
     /**
      * 文章列表默认第一个item为大图
      **/
-    private List<Article> Articles;
+    @XStreamAlias("Articles")
+    private List<Article> articles;
 
     public NewsMessage() {
         super();
@@ -32,8 +36,8 @@ public class NewsMessage extends BaseMessage {
     public NewsMessage(List<Article> articles) {
         this();
         Assert.notEmpty(articles, "文章列表不能为空");
-        this.Articles = articles;
-        this.ArticleCount = articles.size();
+        this.articles = articles;
+        this.articleCount = articles.size();
     }
 
 }
