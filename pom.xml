@@ -23,7 +23,7 @@
 
         <springboot.version>2.2.6.RELEASE</springboot.version>
         <fastjson.version>1.2.69</fastjson.version>
-        <guava.version>27.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <commons.lang3.version>3.7</commons.lang3.version>
         <commons.io.version>2.6</commons.io.version>
         <httpclient.version>4.5.12</httpclient.version>
