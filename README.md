@@ -3,7 +3,6 @@
 
 本项目还有Go实现的版本：https://github.com/MartinDai/weChatRobot-go
 
-
 ![qrcode](robot-web/src/main/resources/static/images/qrcode.jpg "扫码关注，体验智能机器人")
 
 ## 功能介绍：
