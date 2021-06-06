@@ -1,5 +1,8 @@
 # weChatRobot
-一个简单的智能聊天机器人项目，基于微信公众号和图灵机器人开发。
+一个简单的智能聊天机器人项目，基于微信公众号和图灵机器人(V1)开发。
+
+本项目还有Go实现的版本：https://github.com/MartinDai/weChatRobot-go
+
 
 ![qrcode](robot-web/src/main/resources/static/images/qrcode.jpg "扫码关注，体验智能机器人")
 
@@ -14,7 +17,7 @@
 + XStream
 
 ## 使用说明：
-1. 使用之前需要有微信公众号的帐号以及图灵机器人的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)和[图灵机器人帐号注册](http://tuling123.com/register/email.jhtml),。
+1. 使用之前需要有微信公众号的帐号以及图灵机器人的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)和[图灵机器人帐号注册](http://tuling123.com/register/email.jhtml)。
 2. 在src/main/resources目录下的application.yml文件里面配置相关的key。
 3. 微信公众号URL配置为`http://robot.doodl6.com/weChat/receiveMessage`,其中`robot.doodl6.com`是你自己的域名，token与`application.yml`文件配置一致即可。
 4. 本地启动入口：com.doodl6.wechatrobot.WebStarter直接运行
