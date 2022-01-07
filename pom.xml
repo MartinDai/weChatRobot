@@ -7,6 +7,12 @@
     <version>1.0</version>
     <name>weChatRobot</name>
     <url>http://wechatrobot.doodl6.com</url>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.3.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <modules>
         <module>robot-web</module>
@@ -21,7 +27,6 @@
         <additionalparam>-Xdoclint:none</additionalparam>
         <maven.test.skip>true</maven.test.skip>
 
-        <springboot.version>2.2.6.RELEASE</springboot.version>
         <fastjson.version>1.2.69</fastjson.version>
         <guava.version>30.0-jre</guava.version>
         <commons.lang3.version>3.7</commons.lang3.version>
@@ -33,7 +38,7 @@
     <repositories>
         <repository>
             <id>opensource</id>
-            <name>taocode nexus</name>
+            <name>nexus</name>
             <url>https://repo1.maven.org/maven2/</url>
             <layout>default</layout>
             <releases>
@@ -47,37 +52,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- starter 开始-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${springboot.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>spring-boot-starter-logging</artifactId>
-                        <groupId>org.springframework.boot</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-tomcat</artifactId>
-                <version>${springboot.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-log4j2</artifactId>
-                <version>${springboot.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.8</version>
-            </dependency>
-
             <!-- alibaba开源的JSON库 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -96,6 +70,12 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -113,14 +93,13 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
+                <exclusions>
+                    <exclusion>
+                          <groupId>commons-logging</groupId>
+                          <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
-
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
