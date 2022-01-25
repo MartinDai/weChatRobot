@@ -39,7 +39,7 @@
 
 执行下面这行命令可以得到一个编译好的镜像
 ```
-docker build --no-cache -t wechatrobot:latest .
+docker build -f docker/Dockerfile --no-cache -t wechatrobot:latest .
 ```
 
 编译好镜像以后，执行下面的命令，可以后台启动项目
