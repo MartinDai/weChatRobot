@@ -5,7 +5,7 @@ COPY ./docker/settings-docker.xml /usr/share/maven/ref/
 WORKDIR /src/weChatRobot
 RUN mvn package -s /usr/share/maven/ref/settings-docker.xml dependency:resolve
 
-FROM openjdk:8-jre-slim-buster
+FROM openjdk:8-alpine
 
 USER root
 
