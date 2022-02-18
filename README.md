@@ -47,5 +47,10 @@ docker build -f docker/Dockerfile --no-cache -t wechatrobot:latest .
 docker run --name wechatrobot -p 8080:8080 -d wechatrobot:latest
 ```
 
+## 感谢赞助
+
+<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" width="140" height="140" alt="jetbrains"/>
+
+https://jb.gg/OpenSourceSupport
 
 
