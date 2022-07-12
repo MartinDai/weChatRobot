@@ -10,9 +10,9 @@
   
 ## 涉及框架及技术
 + JDK 1.8
-+ SpringBoot 2.2.6.RELEASE
++ SpringBoot
 + FastJson
-+ Log4j2 + Slf4j
++ Logback + Slf4j
 + XStream
 
 ## 支持的功能
