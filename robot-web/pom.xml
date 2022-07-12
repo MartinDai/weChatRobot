@@ -78,28 +78,12 @@
                 <directory>src/main/resources/static</directory>
                 <targetPath>static</targetPath>
             </resource>
-            <resource>
-                <directory>src/main/resources/${activeProfile}</directory>
-                <includes>
-                    <include>log4j2.xml</include>
-                </includes>
-            </resource>
         </resources>
         <plugins>
             <plugin>
                 <!--该插件主要用途：构建可执行的JAR -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.doodl6.wechatrobot.WebStarter</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
