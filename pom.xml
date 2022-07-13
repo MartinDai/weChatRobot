@@ -4,9 +4,8 @@
     <groupId>com.doodl6</groupId>
     <artifactId>weChatRobot</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>${revision}</version>
     <name>weChatRobot</name>
-    <url>http://wechatrobot.doodl6.com</url>
 
     <modules>
         <module>robot-web</module>
@@ -14,6 +13,7 @@
     </modules>
 
     <properties>
+        <revision>1.0</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -55,6 +55,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.doodl6</groupId>
+                <artifactId>robot-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- alibaba开源的JSON库 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
