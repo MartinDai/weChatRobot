@@ -1,3 +1,5 @@
+server:
+  port: 8080
 keyword:
   location:
     version: classpath:/keyword_version.txt
