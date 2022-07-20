@@ -14,6 +14,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -26,8 +28,10 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 关键字配置
@@ -35,7 +39,8 @@ import java.util.TimerTask;
 @Slf4j
 @Configuration
 @ConfigurationProperties("keyword.location")
-public class KeywordConfig implements ApplicationContextAware {
+@ConditionalOnProperty(prefix = "keyword.location", name = "version")
+public class KeywordConfig implements ApplicationContextAware, DisposableBean {
 
     private static final HttpClient httpClient = HttpClientBuilder.create().build();
 
@@ -57,9 +62,12 @@ public class KeywordConfig implements ApplicationContextAware {
     @Setter
     private String message;
 
-    private volatile boolean started;
-
-    private Timer timer;
+    private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(r -> {
+        Thread thread = new Thread(r);
+        thread.setDaemon(true);
+        thread.setName("reload-keyword-task");
+        return thread;
+    });
 
     public BaseMessage getMessageByKeyword(String keyword) {
         JSONObject messageJSON = keywordMessageMap.get(keyword);
@@ -84,18 +92,12 @@ public class KeywordConfig implements ApplicationContextAware {
 
     @PostConstruct
     public void startReloadThread() {
-        if (started) {
-            return;
-        }
+        scheduledExecutorService.scheduleAtFixedRate(new ReloadKeywordTask(applicationContext, version, message), 0, 1, TimeUnit.MINUTES);
+    }
 
-        synchronized (this) {
-            if (started) {
-                return;
-            }
-            started = true;
-        }
-        timer = new Timer("reload-keyword-timer");
-        timer.schedule(new ReloadKeywordTask(applicationContext, version, message), 0, 60000);
+    @Override
+    public void destroy() {
+        scheduledExecutorService.shutdown();
     }
 
     private static class ReloadKeywordTask extends TimerTask {

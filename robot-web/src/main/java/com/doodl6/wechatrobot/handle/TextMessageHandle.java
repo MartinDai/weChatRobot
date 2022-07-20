@@ -7,6 +7,7 @@ import com.doodl6.wechatrobot.service.TulingService;
 import com.doodl6.wechatrobot.util.LogUtil;
 import com.doodl6.wechatrobot.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,7 +22,7 @@ public class TextMessageHandle implements WeChatMessageHandle {
     @Resource
     private TulingService tulingService;
 
-    @Resource
+    @Autowired(required = false)
     private KeywordConfig keywordConfig;
 
     @Override
@@ -33,7 +34,11 @@ public class TextMessageHandle implements WeChatMessageHandle {
         String toUserName = weChatMessage.getToUserName();
         String content = weChatMessage.getContent();
 
-        BaseMessage message = keywordConfig.getMessageByKeyword(content);
+        BaseMessage message = null;
+        if (keywordConfig != null) {
+            message = keywordConfig.getMessageByKeyword(content);
+        }
+
         if (message == null) {
             message = tulingService.getTulingResponse(content, fromUserName);
         }
