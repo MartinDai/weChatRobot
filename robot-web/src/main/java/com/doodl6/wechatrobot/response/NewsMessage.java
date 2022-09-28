@@ -1,6 +1,7 @@
 package com.doodl6.wechatrobot.response;
 
 import com.doodl6.wechatrobot.enums.MessageType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
@@ -19,12 +20,14 @@ public class NewsMessage extends BaseMessage {
     /**
      * 文章数量，限制为10条以内
      **/
+    @JsonProperty("ArticleCount")
     @JacksonXmlProperty(localName = "ArticleCount")
     private int articleCount;
 
     /**
      * 文章列表默认第一个item为大图
      **/
+    @JsonProperty("Articles")
     @JacksonXmlElementWrapper(localName = "Articles")
     @JacksonXmlProperty(localName = "item")
     private List<Article> articles;

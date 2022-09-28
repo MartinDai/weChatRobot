@@ -11,9 +11,8 @@
 ## 涉及框架及技术
 + JDK 1.8
 + SpringBoot
-+ FastJson
++ Jackson
 + Logback + Slf4j
-+ XStream
 
 ## 支持的功能
 * [x] 自动回复文本消息，回复内容来自于图灵机器人

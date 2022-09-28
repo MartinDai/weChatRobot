@@ -1,7 +1,5 @@
 package com.doodl6.wechatrobot.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.doodl6.wechatrobot.config.AppConfig;
 import com.doodl6.wechatrobot.constant.TulingConstants;
 import com.doodl6.wechatrobot.response.Article;
@@ -9,11 +7,15 @@ import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.NewsMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
 import com.doodl6.wechatrobot.util.HttpUtil;
+import com.doodl6.wechatrobot.util.JsonUtil;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,17 +43,16 @@ public class TulingService {
      * 处理图灵机器人返回的结果
      */
     private static BaseMessage processTuRingResult(String result) {
-        JSONObject rootObj = JSON.parseObject(result);
-        int code = rootObj.getIntValue("code");
+        JsonNode rootObj = JsonUtil.jsonToObj(result, JsonNode.class);
+        int code = rootObj.get("code").asInt();
         if (TulingConstants.TEXT_CODE.equals(code)) {
-            return new TextMessage(rootObj.getString("text"));
+            return new TextMessage(rootObj.get("text").asText());
         } else if (TulingConstants.LINK_CODE.equals(code)) {
-            return new TextMessage("<a href='" + rootObj.getString("url") + "'>"
-                    + rootObj.getString("text") + "</a>");
+            return new TextMessage("<a href='" + rootObj.get("url").asText() + "'>"
+                    + rootObj.get("text").asText() + "</a>");
         } else if (TulingConstants.NEWS_CODE.equals(code) || TulingConstants.TRAIN_CODE.equals(code)
                 || TulingConstants.FLIGHT_CODE.equals(code) || TulingConstants.MENU_CODE.equals(code)) {
-            List<JSONObject> list = JSON.parseArray(rootObj.getString("list"), JSONObject.class);
-            List<Article> articles = convertToArticles(list, code);
+            List<Article> articles = convertToArticles((ArrayNode) rootObj.get("list"), code);
             return new NewsMessage(articles);
         } else if (TulingConstants.LENGTH_WRONG_CODE.equals(code) || TulingConstants.KEY_WRONG_CODE.equals(code)) {
             return new TextMessage("我现在想一个人静一静,请等下再跟我聊天");
@@ -73,7 +74,7 @@ public class TulingService {
     /**
      * 根据消息类型转换文章列表
      */
-    private static List<Article> convertToArticles(List<JSONObject> list, int code) {
+    private static List<Article> convertToArticles(ArrayNode arrayNode, int code) {
         String titleKey = "article";
         String descriptionKey = "article";
         if (TulingConstants.MENU_CODE.equals(code)) {
@@ -81,22 +82,24 @@ public class TulingService {
             descriptionKey = "info";
         }
         List<Article> articles = Lists.newLinkedList();
-        for (JSONObject obj : list) {
+        Iterator<JsonNode> nodeIterator = arrayNode.elements();
+        while (nodeIterator.hasNext()) {
+            JsonNode jsonNode = nodeIterator.next();
             Article article = new Article();
             if (TulingConstants.TRAIN_CODE.equals(code)) {
-                article.setTitle(obj.getString("trainnum") + " —— 开车时间:" + obj.getString("starttime"));
-                article.setDescription(obj.getString("start") + "(" + obj.getString("starttime") + ")——>"
-                        + obj.getString("terminal") + "(" + obj.getString("endtime") + ")");
+                article.setTitle(jsonNode.get("trainnum").asText() + " —— 开车时间:" + jsonNode.get("starttime").asText());
+                article.setDescription(jsonNode.get("start").asText() + "(" + jsonNode.get("starttime").asText() + ")——>"
+                        + jsonNode.get("terminal").asText() + "(" + jsonNode.get("endtime").asText() + ")");
             } else if (TulingConstants.FLIGHT_CODE.equals(code)) {
-                article.setTitle(obj.getString("flight") + " —— 起飞时间:" + obj.getString("starttime"));
-                article.setDescription(obj.getString("route") + obj.getString("starttime") + "——>"
-                        + obj.getString("endtime") + "\n航班状态:" + obj.getString("state"));
+                article.setTitle(jsonNode.get("flight").asText() + " —— 起飞时间:" + jsonNode.get("starttime").asText());
+                article.setDescription(jsonNode.get("route").asText() + jsonNode.get("starttime").asText() + "——>"
+                        + jsonNode.get("endtime").asText() + "\n航班状态:" + jsonNode.get("state").asText());
             } else {
-                article.setTitle(obj.getString(titleKey));
-                article.setDescription(obj.getString(descriptionKey));
+                article.setTitle(jsonNode.get(titleKey).asText());
+                article.setDescription(jsonNode.get(descriptionKey).asText());
             }
-            article.setPicUrl(obj.getString("icon"));
-            article.setUrl(obj.getString("detailurl"));
+            article.setPicUrl(jsonNode.get("icon").asText());
+            article.setUrl(jsonNode.get("detailurl").asText());
             articles.add(article);
             if (articles.size() == 10) {
                 break;

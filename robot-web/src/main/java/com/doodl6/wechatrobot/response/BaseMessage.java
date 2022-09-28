@@ -1,5 +1,6 @@
 package com.doodl6.wechatrobot.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -20,6 +21,7 @@ public class BaseMessage {
      * 接收方帐号（收到的OpenID）
      **/
     @JacksonXmlCData
+    @JsonProperty("ToUserName")
     @JacksonXmlProperty(localName = "ToUserName")
     private String toUserName;
 
@@ -27,6 +29,7 @@ public class BaseMessage {
      * 开发者微信号
      **/
     @JacksonXmlCData
+    @JsonProperty("FromUserName")
     @JacksonXmlProperty(localName = "FromUserName")
     private String fromUserName;
 
@@ -40,6 +43,7 @@ public class BaseMessage {
      * 消息类型
      **/
     @JacksonXmlCData
+    @JsonProperty("MsgType")
     @JacksonXmlProperty(localName = "MsgType")
     private String msgType;
 

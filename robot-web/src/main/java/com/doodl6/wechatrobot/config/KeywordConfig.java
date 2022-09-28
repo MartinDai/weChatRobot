@@ -1,10 +1,10 @@
 package com.doodl6.wechatrobot.config;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.NewsMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
+import com.doodl6.wechatrobot.util.JsonUtil;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Maps;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +21,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TimerTask;
@@ -52,7 +54,7 @@ public class KeywordConfig implements ApplicationContextAware, DisposableBean {
     /**
      * 关键字回复内容配置
      */
-    private static Map<String, JSONObject> keywordMessageMap = Maps.newHashMap();
+    private static Map<String, JsonNode> keywordMessageMap = Maps.newHashMap();
 
     private ApplicationContext applicationContext;
 
@@ -70,23 +72,23 @@ public class KeywordConfig implements ApplicationContextAware, DisposableBean {
     });
 
     public BaseMessage getMessageByKeyword(String keyword) {
-        JSONObject messageJSON = keywordMessageMap.get(keyword);
-        if (messageJSON == null) {
+        JsonNode messageJsonNode = keywordMessageMap.get(keyword);
+        if (messageJsonNode == null) {
             return null;
         }
 
-        String type = messageJSON.getString("type");
+        String type = messageJsonNode.get("type").asText();
         BaseMessage baseMessage = null;
         if ("text".equals(type)) {
-            baseMessage = messageJSON.toJavaObject(TextMessage.class);
+            baseMessage = JsonUtil.jsonToObj(messageJsonNode.toString(), TextMessage.class);
         } else if ("news".equals(type)) {
-            baseMessage = messageJSON.toJavaObject(NewsMessage.class);
+            baseMessage = JsonUtil.jsonToObj(messageJsonNode.toString(), NewsMessage.class);
         }
         return baseMessage;
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
 
@@ -165,11 +167,14 @@ public class KeywordConfig implements ApplicationContextAware, DisposableBean {
     }
 
     private static void replaceKeywordMessageMap(String newVersion, String messageConfigStr) {
-        Map<String, JSONObject> newKeywordMessageMap = Maps.newHashMap();
-        JSONObject messageConfigJSON = JSON.parseObject(messageConfigStr);
-        for (String keyword : messageConfigJSON.keySet()) {
-            JSONObject messageJSON = messageConfigJSON.getJSONObject(keyword);
-            newKeywordMessageMap.put(keyword, messageJSON);
+        Map<String, JsonNode> newKeywordMessageMap = Maps.newHashMap();
+        JsonNode messageConfigJson = JsonUtil.jsonToObj(messageConfigStr, JsonNode.class);
+        Iterator<Map.Entry<String, JsonNode>> keywordMessageIterator = messageConfigJson.fields();
+        while (keywordMessageIterator.hasNext()) {
+            Map.Entry<String, JsonNode> entry = keywordMessageIterator.next();
+            String keyword = entry.getKey();
+            JsonNode messageJsonNode = entry.getValue();
+            newKeywordMessageMap.put(keyword, messageJsonNode);
         }
         currentConfigVersion = newVersion;
         keywordMessageMap = newKeywordMessageMap;
