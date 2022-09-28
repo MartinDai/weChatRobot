@@ -1,6 +1,7 @@
 package com.doodl6.wechatrobot.domain;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,31 +10,31 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@XStreamAlias("xml")
+@JsonRootName("xml")
 public class WeChatMessage {
 
-    @XStreamAlias("ToUserName")
+    @JsonProperty("ToUserName")
     private String toUserName;
 
-    @XStreamAlias("FromUserName")
+    @JsonProperty("FromUserName")
     private String fromUserName;
 
-    @XStreamAlias("CreateTime")
+    @JsonProperty("CreateTime")
     private Long createTime;
 
-    @XStreamAlias("MsgType")
+    @JsonProperty("MsgType")
     private String msgType;
 
-    @XStreamAlias("Event")
+    @JsonProperty("Event")
     private String event;
 
-    @XStreamAlias("EventKey")
+    @JsonProperty("EventKey")
     private String eventKey;
 
-    @XStreamAlias("Content")
+    @JsonProperty("Content")
     private String content;
 
-    @XStreamAlias("MsgId")
+    @JsonProperty("MsgId")
     private Long msgId;
 
 }

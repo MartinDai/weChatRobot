@@ -5,7 +5,6 @@ import com.doodl6.wechatrobot.domain.WeChatMessage;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.service.TulingService;
 import com.doodl6.wechatrobot.util.LogUtil;
-import com.doodl6.wechatrobot.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,7 @@ public class TextMessageHandle implements WeChatMessageHandle {
     private KeywordConfig keywordConfig;
 
     @Override
-    public String processMessage(WeChatMessage weChatMessage) {
+    public BaseMessage processMessage(WeChatMessage weChatMessage) {
 
         log.info(LogUtil.buildLog("收到用户文本信息", weChatMessage));
 
@@ -48,6 +47,6 @@ public class TextMessageHandle implements WeChatMessageHandle {
             message.setToUserName(fromUserName);
             message.setCreateTime(System.currentTimeMillis());
         }
-        return MessageUtil.toXml(message);
+        return message;
     }
 }

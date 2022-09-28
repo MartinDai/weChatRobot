@@ -1,6 +1,7 @@
 package com.doodl6.wechatrobot.response;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,31 +10,34 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@XStreamAlias("item")
 public class Article {
 
     /**
      * 文章标题
      **/
-    @XStreamAlias("Title")
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "Title")
     private String title;
 
     /**
      * 文章描述
      **/
-    @XStreamAlias("Description")
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "Description")
     private String description;
 
     /**
      * 封面地址
      **/
-    @XStreamAlias("PicUrl")
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "PicUrl")
     private String picUrl;
 
     /**
      * 文章地址
      **/
-    @XStreamAlias("Url")
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "Url")
     private String url;
 
 }

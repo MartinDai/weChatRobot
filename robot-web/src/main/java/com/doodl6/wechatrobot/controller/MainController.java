@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 @RestController
 @RequestMapping("/weChat")
-@Slf4j
 public class MainController {
 
     @Resource
@@ -22,9 +21,9 @@ public class MainController {
     /**
      * 接收来至微信服务器的消息
      **/
-    @RequestMapping("receiveMessage")
-    public String receiveMessage(String signature, String timestamp, String nonce, String echostr, HttpServletRequest request, HttpServletResponse response) {
-        String result;
+    @RequestMapping(value = "receiveMessage", produces = "application/xml")
+    public Object receiveMessage(String signature, String timestamp, String nonce, String echostr, HttpServletRequest request) {
+        Object result;
         if (HttpMethod.GET.name().equals(request.getMethod())) {
             // 验证签名是否有效
             if (weChatService.checkSignature(signature, timestamp, nonce)) {

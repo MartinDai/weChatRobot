@@ -4,8 +4,9 @@ import com.doodl6.wechatrobot.config.AppConfig;
 import com.doodl6.wechatrobot.domain.WeChatMessage;
 import com.doodl6.wechatrobot.enums.WeChatMsgType;
 import com.doodl6.wechatrobot.handle.WeChatMessageHandle;
+import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
-import com.doodl6.wechatrobot.util.MessageUtil;
+import com.doodl6.wechatrobot.util.XmlUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -61,27 +62,27 @@ public class WeChatService {
     /**
      * 处理收到的消息
      */
-    public String processReceived(InputStream inputStream) {
-        String result;
-        WeChatMessage weChatMessage = MessageUtil.parseWeChatMessage(inputStream);
+    public BaseMessage processReceived(InputStream inputStream) {
+        BaseMessage resultMessage;
+        WeChatMessage weChatMessage = XmlUtil.xmlToObj(inputStream, WeChatMessage.class);
         String fromUserName = weChatMessage.getFromUserName();
         String toUserName = weChatMessage.getToUserName();
         try {
             WeChatMsgType msgType = WeChatMsgType.findByValue(weChatMessage.getMsgType());
             if (msgType == WeChatMsgType.EVENT) {
-                result = eventMessageHandle.processMessage(weChatMessage);
+                resultMessage = eventMessageHandle.processMessage(weChatMessage);
             } else if (msgType == WeChatMsgType.TEXT) {
-                result = textMessageHandle.processMessage(weChatMessage);
+                resultMessage = textMessageHandle.processMessage(weChatMessage);
             } else {
-                result = MessageUtil.toXml(new TextMessage(toUserName, fromUserName, "我只对文字感兴趣[悠闲]"));
+                resultMessage = new TextMessage(toUserName, fromUserName, "我只对文字感兴趣[悠闲]");
             }
         } catch (Exception e) {
             log.error("处理来至微信服务器的消息出现错误", e);
-            result = MessageUtil.toXml(new TextMessage(toUserName,
-                    fromUserName, "我竟无言以对！"));
+            resultMessage = new TextMessage(toUserName,
+                    fromUserName, "我竟无言以对！");
         }
 
-        return result;
+        return resultMessage;
     }
 
     private static String byteToHex(final byte[] hash) {

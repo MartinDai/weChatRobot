@@ -1,6 +1,8 @@
 package com.doodl6.wechatrobot.response;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,30 +13,34 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@JacksonXmlRootElement(localName = "xml")
 public class BaseMessage {
 
     /**
      * 接收方帐号（收到的OpenID）
      **/
-    @XStreamAlias("ToUserName")
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "ToUserName")
     private String toUserName;
 
     /**
      * 开发者微信号
      **/
-    @XStreamAlias("FromUserName")
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "FromUserName")
     private String fromUserName;
 
     /**
      * 消息创建时间
      **/
-    @XStreamAlias("CreateTime")
+    @JacksonXmlProperty(localName = "CreateTime")
     private Long createTime;
 
     /**
      * 消息类型
      **/
-    @XStreamAlias("MsgType")
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "MsgType")
     private String msgType;
 
 }

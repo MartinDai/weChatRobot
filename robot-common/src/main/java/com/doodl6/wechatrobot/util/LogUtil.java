@@ -1,13 +1,12 @@
 package com.doodl6.wechatrobot.util;
 
-import com.alibaba.fastjson.JSON;
-
 /**
  * 日志工具类
  */
 public final class LogUtil {
 
-    private LogUtil(){}
+    private LogUtil() {
+    }
 
     /**
      * 构建日志字符串
@@ -23,7 +22,7 @@ public final class LogUtil {
             if (obj instanceof String) {
                 logBuilder.append(obj);
             } else {
-                logBuilder.append(JSON.toJSONString(obj));
+                logBuilder.append(JsonUtil.objToJson(obj));
             }
         }
 

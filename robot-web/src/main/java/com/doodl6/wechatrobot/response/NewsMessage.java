@@ -1,7 +1,8 @@
 package com.doodl6.wechatrobot.response;
 
 import com.doodl6.wechatrobot.enums.MessageType;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.Assert;
@@ -13,19 +14,19 @@ import java.util.List;
  */
 @Getter
 @Setter
-@XStreamAlias("xml")
 public class NewsMessage extends BaseMessage {
 
     /**
      * 文章数量，限制为10条以内
      **/
-    @XStreamAlias("ArticleCount")
+    @JacksonXmlProperty(localName = "ArticleCount")
     private int articleCount;
 
     /**
      * 文章列表默认第一个item为大图
      **/
-    @XStreamAlias("Articles")
+    @JacksonXmlElementWrapper(localName = "Articles")
+    @JacksonXmlProperty(localName = "item")
     private List<Article> articles;
 
     public NewsMessage() {
