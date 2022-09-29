@@ -3,16 +3,13 @@ package com.doodl6.wechatrobot.config;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.NewsMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
+import com.doodl6.wechatrobot.util.HttpUtil;
 import com.doodl6.wechatrobot.util.JsonUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Maps;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -43,8 +40,6 @@ import java.util.concurrent.TimeUnit;
 @ConfigurationProperties("keyword.location")
 @ConditionalOnProperty(prefix = "keyword.location", name = "version")
 public class KeywordConfig implements ApplicationContextAware, DisposableBean {
-
-    private static final HttpClient httpClient = HttpClientBuilder.create().build();
 
     /**
      * 当前配置的版本
@@ -149,16 +144,13 @@ public class KeywordConfig implements ApplicationContextAware, DisposableBean {
 
     private static void reloadByHttp(String versionLocation, String messageLocation) {
         try {
-            HttpResponse versionResponse = httpClient.execute(new HttpGet(versionLocation));
-            String newVersion = IOUtils.toString(versionResponse.getEntity().getContent(), StandardCharsets.UTF_8);
+            String newVersion = HttpUtil.get(versionLocation);
 
             if (Objects.equals(currentConfigVersion, newVersion)) {
                 return;
             }
 
-            HttpResponse messageResponse = httpClient.execute(new HttpGet(messageLocation));
-            String messageConfigStr = IOUtils.toString(messageResponse.getEntity().getContent(), StandardCharsets.UTF_8);
-
+            String messageConfigStr = HttpUtil.get(messageLocation);
             replaceKeywordMessageMap(newVersion, messageConfigStr);
 
         } catch (Exception e) {
