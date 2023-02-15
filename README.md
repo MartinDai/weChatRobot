@@ -33,7 +33,7 @@
 本地打包得到weChatRobot.jar这个文件，使用命令`java -jar weChatRobot.jar`即可运行，
 
 ### 服务器jar包部署
-使用使用命令`mvn clean install -P deploy`打包得到jar文件，上传到服务器后使用命令`nohup java -jar weChatRobot.jar > ./console.log 2>&1 &`在后台运行，在执行命令的当前目录查看console日志以及logs目录查看业务日志
+使用命令`mvn clean install -P deploy`打包得到jar文件，上传到服务器后使用命令`nohup java -jar weChatRobot.jar > ./console.log 2>&1 &`在后台运行，在执行命令的当前目录查看console日志以及logs目录查看业务日志
 
 ### Docker运行
 
