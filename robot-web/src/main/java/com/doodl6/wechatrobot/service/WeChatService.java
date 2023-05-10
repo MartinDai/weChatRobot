@@ -10,28 +10,36 @@ import com.doodl6.wechatrobot.util.XmlUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Formatter;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 微信服务类
  */
-@Service
 @Slf4j
+@Service
 public class WeChatService {
 
     @Resource
-    private WeChatMessageHandle eventMessageHandle;
+    private List<WeChatMessageHandle> weChatMessageHandleList;
 
-    @Resource
-    private WeChatMessageHandle textMessageHandle;
+    private Map<WeChatMsgType, WeChatMessageHandle> messageHandleMap;
 
     @Resource
     private AppConfig appConfig;
+
+    @PostConstruct
+    public void init() {
+        messageHandleMap = weChatMessageHandleList.stream().collect(Collectors.toMap(WeChatMessageHandle::getMsgType, t -> t));
+    }
 
     /**
      * 验证微信消息合法性
@@ -69,17 +77,15 @@ public class WeChatService {
         String toUserName = weChatMessage.getToUserName();
         try {
             WeChatMsgType msgType = WeChatMsgType.findByValue(weChatMessage.getMsgType());
-            if (msgType == WeChatMsgType.EVENT) {
-                resultMessage = eventMessageHandle.processMessage(weChatMessage);
-            } else if (msgType == WeChatMsgType.TEXT) {
-                resultMessage = textMessageHandle.processMessage(weChatMessage);
+            WeChatMessageHandle weChatMessageHandle = messageHandleMap.get(msgType);
+            if (weChatMessageHandle == null) {
+                resultMessage = new TextMessage(toUserName, fromUserName, "你说啥我咋没懂呢[疑问]");
             } else {
-                resultMessage = new TextMessage(toUserName, fromUserName, "我只对文字感兴趣[悠闲]");
+                resultMessage = weChatMessageHandle.processMessage(weChatMessage);
             }
         } catch (Exception e) {
             log.error("处理来至微信服务器的消息出现错误", e);
-            resultMessage = new TextMessage(toUserName,
-                    fromUserName, "我竟无言以对！");
+            resultMessage = new TextMessage(toUserName, fromUserName, "我竟无言以对！");
         }
 
         return resultMessage;

@@ -2,6 +2,7 @@ package com.doodl6.wechatrobot.handle;
 
 import com.doodl6.wechatrobot.domain.WeChatMessage;
 import com.doodl6.wechatrobot.enums.WeChatEventType;
+import com.doodl6.wechatrobot.enums.WeChatMsgType;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
 import org.slf4j.Logger;
@@ -15,6 +16,11 @@ import org.springframework.stereotype.Service;
 public class EventMessageHandle implements WeChatMessageHandle {
 
     private static final Logger logger = LoggerFactory.getLogger(EventMessageHandle.class);
+
+    @Override
+    public WeChatMsgType getMsgType() {
+        return WeChatMsgType.EVENT;
+    }
 
     @Override
     public BaseMessage processMessage(WeChatMessage weChatMessage) {

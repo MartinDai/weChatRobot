@@ -1,6 +1,5 @@
 package com.doodl6.wechatrobot.service;
 
-import com.doodl6.wechatrobot.config.AppConfig;
 import com.doodl6.wechatrobot.constant.TulingConstants;
 import com.doodl6.wechatrobot.domain.TulingTextReq;
 import com.doodl6.wechatrobot.response.BaseMessage;
@@ -10,9 +9,10 @@ import com.doodl6.wechatrobot.util.JsonUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
@@ -25,15 +25,28 @@ public class TulingService {
 
     private static final String API_URL = "http://openapi.turingapi.com/openapi/api/v2";
 
-    @Resource
-    private AppConfig appConfig;
+    private static final String PROPERTIES_KEY = "TULING_API_KEY";
+
+    private static String API_KEY;
+
+    @PostConstruct
+    public void init() {
+        API_KEY = System.getProperty(PROPERTIES_KEY);
+        if (API_KEY == null) {
+            API_KEY = System.getenv(PROPERTIES_KEY);
+        }
+    }
 
     /**
-     * 获取图灵机器人消息响应
+     * 获取消息响应
      */
-    public BaseMessage getTulingResponse(String content, String fromUserName) {
+    public BaseMessage getResponse(String content, String fromUserName) {
+        if (StringUtils.isBlank(API_KEY)) {
+            return null;
+        }
+
         String info = new String(content.getBytes(), StandardCharsets.UTF_8);
-        TulingTextReq req = TulingTextReq.buildReq(appConfig.getApiKey(), fromUserName, info);
+        TulingTextReq req = TulingTextReq.buildReq(API_KEY, fromUserName, info);
         String result = HttpUtil.post(API_URL, JsonUtil.objToJson(req));
         return processTuRingResult(result);
     }

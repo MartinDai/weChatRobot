@@ -19,8 +19,4 @@ public class AppConfig {
      */
     public String token;
 
-    /**
-     * 图灵机器人应用key
-     */
-    public String apiKey;
 }

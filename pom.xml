@@ -26,6 +26,7 @@
         <httpclient.version>4.5.13</httpclient.version>
         <jackson.version>2.13.3</jackson.version>
         <okhttp3.version>4.10.0</okhttp3.version>
+        <openai-gpt3-java.version>0.12.0</openai-gpt3-java.version>
         <slf4j.version>1.7.30</slf4j.version>
         <snakeyaml.version>1.33</snakeyaml.version>
         <spring-boot.version>2.6.9</spring-boot.version>
@@ -102,6 +103,12 @@
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
                 <version>${okhttp3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.theokanning.openai-gpt3-java</groupId>
+                <artifactId>service</artifactId>
+                <version>${openai-gpt3-java.version}</version>
             </dependency>
 
         </dependencies>

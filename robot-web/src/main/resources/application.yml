@@ -7,4 +7,3 @@ spring:
     active: @activeProfile@
 app:
   token: atming_
-  apiKey: 28f46f7363c0442dbe8caf6261284fb5
