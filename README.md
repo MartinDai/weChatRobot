@@ -13,11 +13,11 @@
 ## 涉及框架及技术
 
 - [SpringBoot](https://github.com/spring-projects/spring-boot)
-+ [Jackson](https://github.com/FasterXML/jackson)
-+ [Logback](https://github.com/qos-ch/logback)
-+ [OkHttp](https://github.com/square/okhttp)
-+ [Guava](https://github.com/google/guava)
-+ [Openai-java](https://github.com/TheoKanning/openai-java)
+- [Jackson](https://github.com/FasterXML/jackson)
+- [Logback](https://github.com/qos-ch/logback)
+- [OkHttp](https://github.com/square/okhttp)
+- [Guava](https://github.com/google/guava)
+- [Openai-java](https://github.com/TheoKanning/openai-java)
 
 ## 支持的功能
 
@@ -41,13 +41,34 @@
 
 直接运行类`com.doodl6.wechatrobot.WebStarter`
 
-### 本地jar包运行
+### jar包运行
 
-本地打包得到weChatRobot.jar这个文件，使用命令`java -jar weChatRobot.jar`即可运行，
+maven编译打包
 
-### 服务器jar包部署
+```
+mvn clean package
+```
 
-使用命令`mvn clean install -P deploy`打包得到jar文件，上传到服务器后使用命令`nohup java -jar weChatRobot.jar > ./console.log 2>&1 &`在后台运行，在执行命令的当前目录查看console日志以及logs目录查看业务日志
+如果需要激活deploy这个profile，可以使用
+```
+mvn clean package -P deploy
+```
+
+打包完成后，在robot-web/target目录会生成weChatRobot.jar
+
+启动执行
+
+```shell
+java -jar weChatRobot.jar
+```
+
+服务器部署后台运行
+
+```shell
+nohup java -jar weChatRobot.jar > ./console.log 2>&1 &
+```
+
+在执行命令的当前目录查看console日志以及logs目录查看业务日志
 
 ### Docker运行
 
