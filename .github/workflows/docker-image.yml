@@ -12,4 +12,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build -t wechatrobot:$(date +%s) .
+        run: docker build -f docker/Dockerfile -t wechatrobot:$(date +%s) .
