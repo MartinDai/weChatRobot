@@ -2,7 +2,7 @@
 
 一个基于微信公众号的智能聊天机器人项目，支持图灵机器人(V2)和ChatGPT对话模式回复内容
 
-本项目还有Go实现的版本：https://github.com/MartinDai/weChatRobot-go
+本项目还有Go实现的版本：<https://github.com/MartinDai/weChatRobot-go>
 
 ![qrcode](robot-web/src/main/resources/static/images/qrcode.jpg "扫码关注，体验智能机器人")
 
@@ -33,7 +33,7 @@
 4. 可以通过配置启动参数或者环境变量`OPENAI_BASE_DOMAIN`更换访问OpenAI的域名
 5. 可以通过配置启动参数或者环境变量`OPENAI_PROXY`使用代理服务访问OpenAI
 6. 内容响应来源的优先级`自定义关键 > ChatGPT > 图灵机器人`
-7. 在微信公众号后台配置回调URL为[https://wechatrobot.doodl6.com/weChat/receiveMessage](https://wechatrobot.doodl6.com/weChat/receiveMessage)，其中`wechatrobot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可
+7. 在微信公众号后台配置回调URL为<https://wechatrobot.doodl6.com/weChat/receiveMessage>，其中`wechatrobot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可
 
 ## 开发部署
 
@@ -72,13 +72,13 @@ nohup java -jar weChatRobot.jar > ./console.log 2>&1 &
 
 ### Docker运行
 
-编译镜像
+构建适用于当前操作系统架构的镜像
 
 ```
 docker build -f docker/Dockerfile --no-cache -t wechatrobot:latest .
 ```
 
-编译指定架构的镜像
+构建指定架构的镜像
 
 ```
 docker buildx build -f docker/Dockerfile --no-cache -t wechatrobot:latest --platform=linux/amd64 -o type=docker .
