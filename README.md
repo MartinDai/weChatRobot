@@ -33,7 +33,7 @@
 4. 可以通过配置启动参数或者环境变量`OPENAI_BASE_DOMAIN`更换访问OpenAI的域名
 5. 可以通过配置启动参数或者环境变量`OPENAI_PROXY`使用代理服务访问OpenAI
 6. 内容响应来源的优先级`自定义关键 > ChatGPT > 图灵机器人`
-7. 在微信公众号后台配置回调URL为`http://robot.doodl6.com/weChat/receiveMessage`,其中`robot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可。
+7. 在微信公众号后台配置回调URL为[http://robot.doodl6.com/weChat/receiveMessage](http://robot.doodl6.com/weChat/receiveMessage)，其中`robot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可
 
 ## 开发部署
 
