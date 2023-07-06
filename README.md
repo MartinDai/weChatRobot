@@ -12,11 +12,12 @@
   
 ## 涉及框架及技术
 
-+ Jdk 1.8
-+ SpringBoot
-+ Jackson
-+ Logback + Slf4j
-+ OkHttp
+- [SpringBoot](https://github.com/spring-projects/spring-boot)
++ [Jackson](https://github.com/FasterXML/jackson)
++ [Logback](https://github.com/qos-ch/logback)
++ [OkHttp](https://github.com/square/okhttp)
++ [Guava](https://github.com/google/guava)
++ [Openai-java](https://github.com/TheoKanning/openai-java)
 
 ## 支持的功能
 
@@ -26,11 +27,13 @@
 
 ## 使用说明：
 
-1. 使用之前需要有微信公众号的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)。
-2. 如果需要使用图灵机器人的回复内容则需要[注册图灵机器人帐号](http://tuling123.com/register/email.jhtml)获取相应的ApiKey并配置在启动参数或者环境变量中。
-3. 如果需要使用ChatGPT的回复内容则需要[创建OpenAI的API Key](https://platform.openai.com/account/api-keys)并配置在启动参数或者环境变量中。需保证服务所在的地区网络可以正常访问OpenAI
-4. 内容响应来源的优先级`自定义关键 > ChatGPT > 图灵机器人`
-5. 在微信公众号后台配置回调URL为`http://robot.doodl6.com/weChat/receiveMessage`,其中`robot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可。
+1. 使用之前需要有微信公众号的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)
+2. 如果需要使用图灵机器人的回复内容则需要[注册图灵机器人帐号](http://tuling123.com/register/email.jhtml)获取相应的ApiKey并配置在启动参数或者环境变量中
+3. 如果需要使用ChatGPT的回复内容则需要[创建OpenAI的API Key](https://platform.openai.com/account/api-keys)并配置在启动参数或者环境变量中
+4. 可以通过配置启动参数或者环境变量`OPENAI_BASE_DOMAIN`更换访问OpenAI的域名
+5. 可以通过配置启动参数或者环境变量`OPENAI_PROXY`使用代理服务访问OpenAI
+6. 内容响应来源的优先级`自定义关键 > ChatGPT > 图灵机器人`
+7. 在微信公众号后台配置回调URL为`http://robot.doodl6.com/weChat/receiveMessage`,其中`robot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可。
 
 ## 开发部署
 
