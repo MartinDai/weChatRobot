@@ -33,7 +33,7 @@
 4. 可以通过配置启动参数或者环境变量`OPENAI_BASE_DOMAIN`更换访问OpenAI的域名
 5. 可以通过配置启动参数或者环境变量`OPENAI_PROXY`使用代理服务访问OpenAI
 6. 内容响应来源的优先级`自定义关键 > ChatGPT > 图灵机器人`
-7. 在微信公众号后台配置回调URL为[http://robot.doodl6.com/weChat/receiveMessage](http://robot.doodl6.com/weChat/receiveMessage)，其中`robot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可
+7. 在微信公众号后台配置回调URL为[https://wechatrobot.doodl6.com/weChat/receiveMessage](https://wechatrobot.doodl6.com/weChat/receiveMessage)，其中`wechatrobot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可
 
 ## 开发部署
 
@@ -72,12 +72,20 @@ nohup java -jar weChatRobot.jar > ./console.log 2>&1 &
 
 ### Docker运行
 
-执行下面这行命令可以得到一个编译好的镜像
+编译镜像
+
 ```
 docker build -f docker/Dockerfile --no-cache -t wechatrobot:latest .
 ```
 
-编译好镜像以后，执行下面的命令，可以后台启动项目
+编译指定架构的镜像
+
+```
+docker buildx build -f docker/Dockerfile --no-cache -t wechatrobot:latest --platform=linux/amd64 -o type=docker .
+```
+
+后台运行镜像
+
 ```
 docker run --name wechatrobot -p 8080:8080 -d wechatrobot:latest
 ```
