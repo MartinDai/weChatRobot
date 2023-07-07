@@ -44,7 +44,7 @@ public class ChatGptService {
 
         String proxyAddress = PropertyUtil.getProperty(OPENAI_PROXY);
         OkHttpClient.Builder clientBuilder = OpenAiService.defaultClient(apiKey, Duration.ofSeconds(10)).newBuilder();
-        if (StringUtils.isNotBlank(OPENAI_PROXY)) {
+        if (StringUtils.isNotBlank(proxyAddress)) {
             boolean valid = AddressUtil.validateAddress(proxyAddress);
             if (!valid) {
                 throw new RuntimeException("OPENAI_PROXY is not valid, value:" + proxyAddress);
