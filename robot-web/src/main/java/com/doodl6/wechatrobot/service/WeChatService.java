@@ -1,18 +1,14 @@
 package com.doodl6.wechatrobot.service;
 
-import com.doodl6.wechatrobot.config.AppConfig;
+import com.doodl6.wechatrobot.config.WechatConfig;
 import com.doodl6.wechatrobot.domain.WeChatMessage;
 import com.doodl6.wechatrobot.enums.WeChatMsgType;
-import com.doodl6.wechatrobot.handle.WeChatMessageHandle;
+import com.doodl6.wechatrobot.processor.WeChatMessageProcessor;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
 import com.doodl6.wechatrobot.util.XmlUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -25,20 +21,15 @@ import java.util.stream.Collectors;
  * 微信服务类
  */
 @Slf4j
-@Service
 public class WeChatService {
 
-    @Resource
-    private List<WeChatMessageHandle> weChatMessageHandleList;
+    private final WechatConfig wechatConfig;
 
-    private Map<WeChatMsgType, WeChatMessageHandle> messageHandleMap;
+    private final Map<WeChatMsgType, WeChatMessageProcessor> messageHandleMap;
 
-    @Resource
-    private AppConfig appConfig;
-
-    @PostConstruct
-    public void init() {
-        messageHandleMap = weChatMessageHandleList.stream().collect(Collectors.toMap(WeChatMessageHandle::getMsgType, t -> t));
+    public WeChatService(WechatConfig wechatConfig, List<WeChatMessageProcessor> weChatMessageProcessorList) {
+        this.wechatConfig = wechatConfig;
+        messageHandleMap = weChatMessageProcessorList.stream().collect(Collectors.toMap(WeChatMessageProcessor::getMsgType, t -> t));
     }
 
     /**
@@ -48,7 +39,7 @@ public class WeChatService {
         if (signature == null || timestamp == null || nonce == null) {
             return false;
         }
-        String[] arr = new String[]{appConfig.getToken(), timestamp, nonce};
+        String[] arr = new String[]{wechatConfig.getToken(), timestamp, nonce};
         // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(arr);
         StringBuilder content = new StringBuilder();
@@ -70,14 +61,14 @@ public class WeChatService {
     /**
      * 处理收到的消息
      */
-    public BaseMessage processReceived(InputStream inputStream) {
+    public BaseMessage processReceived(String message) {
         BaseMessage resultMessage;
-        WeChatMessage weChatMessage = XmlUtil.xmlToObj(inputStream, WeChatMessage.class);
+        WeChatMessage weChatMessage = XmlUtil.xmlToObj(message, WeChatMessage.class);
         String fromUserName = weChatMessage.getFromUserName();
         String toUserName = weChatMessage.getToUserName();
         try {
             WeChatMsgType msgType = WeChatMsgType.findByValue(weChatMessage.getMsgType());
-            WeChatMessageHandle weChatMessageHandle = messageHandleMap.get(msgType);
+            WeChatMessageProcessor weChatMessageHandle = messageHandleMap.get(msgType);
             if (weChatMessageHandle == null) {
                 resultMessage = new TextMessage(toUserName, fromUserName, "你说啥我咋没懂呢[疑问]");
             } else {

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class NewsMessage extends BaseMessage {
 
     public NewsMessage(List<Article> articles) {
         this();
-        Assert.notEmpty(articles, "文章列表不能为空");
+        Validate.notEmpty(articles, "文章列表不能为空");
         this.articles = articles;
         this.articleCount = articles.size();
     }

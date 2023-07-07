@@ -1,0 +1,7 @@
+app:
+  port: 8080
+wechat:
+  token: atming_
+keyword:
+  versionLocation: keyword_version.txt
+  messageLocation: keyword.json
