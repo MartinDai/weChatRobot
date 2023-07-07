@@ -23,26 +23,23 @@ public class MainVerticle extends AbstractVerticle {
 
     @Override
     public void start() {
-        Router router = Router.router(vertx);
+        try {
+            Router router = Router.router(vertx);
 
-        router.route().handler(StaticHandler.create("static"));
+            router.route().handler(StaticHandler.create("static"));
 
-        String json = config().toString();
-        WebConfig webConfig = JsonUtil.jsonToObj(json, WebConfig.class);
-        Route messageRoute = router.route("/weChat/receiveMessage");
-        messageRoute.handler(new MainHandler(vertx, webConfig.getWechat(), webConfig.getKeyword()));
+            String json = config().toString();
+            WebConfig webConfig = JsonUtil.jsonToObj(json, WebConfig.class);
+            Route messageRoute = router.route("/weChat/receiveMessage");
+            messageRoute.handler(new MainHandler(vertx, webConfig.getWechat(), webConfig.getKeyword()));
 
-        int port;
-        if (webConfig.getApp().getPort() == null) {
-            port = 8080;
-        } else {
-            port = webConfig.getApp().getPort();
+            vertx.createHttpServer()
+                    .requestHandler(router)
+                    .listen(webConfig.getApp().getPort())
+                    .onSuccess(server -> log.info("HTTP server started on port " + server.actualPort()));
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
-
-        vertx.createHttpServer()
-                .requestHandler(router)
-                .listen(port)
-                .onSuccess(server -> log.info("HTTP server started on port " + server.actualPort()));
     }
 
     public static void main(String[] args) {

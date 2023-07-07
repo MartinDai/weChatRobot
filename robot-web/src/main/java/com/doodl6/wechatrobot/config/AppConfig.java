@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class AppConfig {
 
-    private Integer port;
+    private int port = 8080;
 }

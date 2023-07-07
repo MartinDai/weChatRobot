@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter
 public class WebConfig {
 
-    public AppConfig app;
+    public AppConfig app = new AppConfig();
 
-    public WechatConfig wechat;
+    public WechatConfig wechat = new WechatConfig();
 
-    public KeywordConfig keyword;
+    public KeywordConfig keyword = new KeywordConfig();
 
 }
