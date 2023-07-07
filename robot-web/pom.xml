@@ -17,12 +17,12 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-config-yaml</artifactId>
         </dependency>
 
         <dependency>
@@ -32,58 +32,31 @@
 
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <activeProfile>dev</activeProfile>
-            </properties>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <includes>
-                            <include>keyword.json</include>
-                            <include>keyword_version.txt</include>
-                        </includes>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-
-        <profile>
-            <id>deploy</id>
-            <properties>
-                <activeProfile>deploy</activeProfile>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
-        <finalName>weChatRobot</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>application.yml</include>
-                    <include>application-${activeProfile}.yml</include>
-                    <include>logback-spring.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources/static</directory>
-                <targetPath>static</targetPath>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
-                <!--该插件主要用途：构建可执行的JAR -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <configuration>
+                    <finalName>weChatRobot</finalName>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.doodl6.wechatrobot.MainVerticle</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

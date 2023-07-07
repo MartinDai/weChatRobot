@@ -1,9 +1,0 @@
-server:
-  servlet:
-    encoding:
-      charset: UTF-8
-spring:
-  profiles:
-    active: @activeProfile@
-app:
-  token: atming_

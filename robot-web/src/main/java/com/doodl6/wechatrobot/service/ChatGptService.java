@@ -12,17 +12,14 @@ import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
 import okhttp3.OkHttpClient;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 import retrofit2.Retrofit;
 
-import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 
-@Service
 public class ChatGptService {
 
     private static final String OPENAI_API_KEY = "OPENAI_API_KEY";
@@ -35,8 +32,7 @@ public class ChatGptService {
 
     private static OpenAiService openAiService;
 
-    @PostConstruct
-    public void init() {
+    public ChatGptService() {
         String apiKey = PropertyUtil.getProperty(OPENAI_API_KEY);
         if (StringUtils.isBlank(apiKey)) {
             return;

@@ -1,0 +1,7 @@
+app:
+  port: 8080
+wechat:
+  token: atming_
+keyword:
+  versionLocation: https://raw.githubusercontent.com/MartinDai/weChatRobot/master/robot-web/src/main/resources/keyword_version.txt
+  messageLocation: https://raw.githubusercontent.com/MartinDai/weChatRobot/master/robot-web/src/main/resources/keyword.json

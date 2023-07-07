@@ -8,19 +8,14 @@ import com.doodl6.wechatrobot.util.HttpUtil;
 import com.doodl6.wechatrobot.util.JsonUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 /**
  * 图灵服务类
  */
-@Slf4j
-@Service
 public class TulingService {
 
     private static final String API_URL = "http://openapi.turingapi.com/openapi/api/v2";
@@ -29,8 +24,7 @@ public class TulingService {
 
     private static String API_KEY;
 
-    @PostConstruct
-    public void init() {
+    public TulingService() {
         API_KEY = System.getProperty(PROPERTIES_KEY);
         if (API_KEY == null) {
             API_KEY = System.getenv(PROPERTIES_KEY);

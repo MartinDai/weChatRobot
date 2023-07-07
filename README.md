@@ -12,12 +12,14 @@
   
 ## 涉及框架及技术
 
-- [SpringBoot](https://github.com/spring-projects/spring-boot)
+- [Vert.x](https://github.com/eclipse-vertx/vert.x)
 - [Jackson](https://github.com/FasterXML/jackson)
 - [Logback](https://github.com/qos-ch/logback)
 - [OkHttp](https://github.com/square/okhttp)
 - [Guava](https://github.com/google/guava)
 - [Openai-java](https://github.com/TheoKanning/openai-java)
+
+_Tips:1.2版本开始使用Vert.x替换SpringBoot_
 
 ## 支持的功能
 
@@ -39,7 +41,7 @@
 
 ### 本地启动
 
-直接运行类`com.doodl6.wechatrobot.WebStarter`
+直接运行类`com.doodl6.wechatrobot.MainVerticle`
 
 ### jar包运行
 
@@ -49,17 +51,18 @@ maven编译打包
 mvn clean package
 ```
 
-如果需要激活deploy这个profile，可以使用
-```
-mvn clean package -P deploy
-```
-
 打包完成后，在robot-web/target目录会生成weChatRobot.jar
 
 启动执行
 
 ```shell
 java -jar weChatRobot.jar
+```
+
+使用-D指定配置文件，支持相对路径和绝对路径
+
+```shell
+java -Dconfig=config-deploy.yml -jar weChatRobot.jar
 ```
 
 服务器部署后台运行

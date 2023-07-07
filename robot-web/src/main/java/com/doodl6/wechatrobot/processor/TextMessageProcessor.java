@@ -1,4 +1,4 @@
-package com.doodl6.wechatrobot.handle;
+package com.doodl6.wechatrobot.processor;
 
 import com.doodl6.wechatrobot.config.KeywordConfig;
 import com.doodl6.wechatrobot.domain.WeChatMessage;
@@ -6,29 +6,29 @@ import com.doodl6.wechatrobot.enums.WeChatMsgType;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
 import com.doodl6.wechatrobot.service.ChatGptService;
+import com.doodl6.wechatrobot.service.KeywordService;
 import com.doodl6.wechatrobot.service.TulingService;
 import com.doodl6.wechatrobot.util.LogUtil;
+import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * 文本类型消息处理类
  */
-@Service
 @Slf4j
-public class TextMessageHandle implements WeChatMessageHandle {
+public class TextMessageProcessor implements WeChatMessageProcessor {
 
-    @Autowired(required = false)
-    private KeywordConfig keywordConfig;
+    private final KeywordService keywordService;
 
-    @Resource
-    private ChatGptService chatGptService;
+    private final ChatGptService chatGptService;
 
-    @Resource
-    private TulingService tulingService;
+    private final TulingService tulingService;
+
+    public TextMessageProcessor(Vertx vertx, KeywordConfig keywordConfig) {
+        this.keywordService = new KeywordService(vertx, keywordConfig);
+        this.chatGptService = new ChatGptService();
+        this.tulingService = new TulingService();
+    }
 
     @Override
     public WeChatMsgType getMsgType() {
@@ -45,10 +45,7 @@ public class TextMessageHandle implements WeChatMessageHandle {
         String content = weChatMessage.getContent();
 
         //优先查找关键字配置
-        BaseMessage message = null;
-        if (keywordConfig != null) {
-            message = keywordConfig.getMessageByKeyword(content);
-        }
+        BaseMessage message = keywordService.getMessageByKeyword(content);
 
         //再尝试从GPT获取响应
         if (message == null) {
