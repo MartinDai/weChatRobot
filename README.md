@@ -14,7 +14,6 @@
 
 - [Vert.x](https://github.com/eclipse-vertx/vert.x)
 - [Jackson](https://github.com/FasterXML/jackson)
-- [Logback](https://github.com/qos-ch/logback)
 - [OkHttp](https://github.com/square/okhttp)
 - [Guava](https://github.com/google/guava)
 - [Openai-java](https://github.com/TheoKanning/openai-java)
@@ -71,7 +70,23 @@ java -Dconfig=config-deploy.yml -jar weChatRobot.jar
 nohup java -jar weChatRobot.jar > ./console.log 2>&1 &
 ```
 
-在执行命令的当前目录查看console日志以及logs目录查看业务日志
+在执行命令的当前目录查看console日志
+
+### native-image运行
+
+构建native-image
+
+```shell
+mvn clean package -P native-image
+```
+
+构建完成后，在robot-web/target目录会生成weChatRobot可执行文件，可以直接运行
+
+```shell
+./weChatRobot
+```
+
+**注意：native-image不支持通过-D指定配置**
 
 ### Docker运行
 

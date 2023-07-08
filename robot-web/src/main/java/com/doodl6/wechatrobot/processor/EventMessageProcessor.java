@@ -5,13 +5,15 @@ import com.doodl6.wechatrobot.enums.WeChatEventType;
 import com.doodl6.wechatrobot.enums.WeChatMsgType;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
-import lombok.extern.slf4j.Slf4j;
+
+import java.util.logging.Logger;
 
 /**
  * 事件类型消息处理类
  */
-@Slf4j
 public class EventMessageProcessor implements WeChatMessageProcessor {
+
+    private static final Logger LOGGER = Logger.getLogger(EventMessageProcessor.class.getName());
 
     @Override
     public WeChatMsgType getMsgType() {
@@ -27,7 +29,7 @@ public class EventMessageProcessor implements WeChatMessageProcessor {
         if (eventType == WeChatEventType.SUBSCRIBE) {
             return new TextMessage(toUserName, fromUserName, "谢谢关注！可以开始跟我聊天啦😁");
         } else if (eventType == WeChatEventType.UNSUBSCRIBE) {
-            log.info("用户[" + weChatMessage.getFromUserName() + "]取消了订阅");
+            LOGGER.info("用户[" + weChatMessage.getFromUserName() + "]取消了订阅");
         }
 
         return new TextMessage(toUserName, fromUserName, "bye!");

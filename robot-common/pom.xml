@@ -5,7 +5,7 @@
     <parent>
         <artifactId>weChatRobot</artifactId>
         <groupId>com.doodl6</groupId>
-        <version>${revision}</version>
+        <version>1.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>robot-common</artifactId>

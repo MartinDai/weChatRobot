@@ -4,7 +4,7 @@
     <groupId>com.doodl6</groupId>
     <artifactId>weChatRobot</artifactId>
     <packaging>pom</packaging>
-    <version>${revision}</version>
+    <version>1.2</version>
     <name>weChatRobot</name>
 
     <modules>
@@ -30,7 +30,6 @@
         <okhttp3.version>4.10.0</okhttp3.version>
         <openai-gpt3-java.version>0.12.0</openai-gpt3-java.version>
         <reactive-streams.version>1.0.3</reactive-streams.version>
-        <slf4j.version>2.0.7</slf4j.version>
         <vertx.version>4.4.4</vertx.version>
     </properties>
 
@@ -119,24 +118,10 @@
                 <version>${kotlin-stdlib.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

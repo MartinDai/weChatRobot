@@ -1,0 +1,23 @@
+[
+  {
+    "name" : "com.doodl6.wechatrobot.config.WebConfig",
+    "allPublicMethods" : true,
+    "allDeclaredConstructors" : true
+  },
+  {
+    "name" : "com.doodl6.wechatrobot.config.AppConfig",
+    "allPublicMethods" : true,
+    "allDeclaredConstructors" : true
+  },
+  {
+    "name" : "com.doodl6.wechatrobot.config.WechatConfig",
+    "allPublicMethods" : true,
+    "allDeclaredConstructors" : true
+  },
+  {
+    "name" : "com.doodl6.wechatrobot.config.KeywordConfig",
+    "allPublicMethods" : true,
+    "allDeclaredConstructors" : true
+  }
+
+]

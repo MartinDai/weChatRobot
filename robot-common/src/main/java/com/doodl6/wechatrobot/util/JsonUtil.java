@@ -5,14 +5,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@Slf4j
 public class JsonUtil {
+
+    private static final Logger LOGGER = Logger.getLogger(JsonUtil.class.getName());
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -35,7 +37,7 @@ public class JsonUtil {
         try {
             return OBJECT_MAPPER.readValue(jsonStr, clazz);
         } catch (IOException e) {
-            log.error("json格式化异常", e);
+            LOGGER.log(Level.SEVERE, "json转对象异常", e);
             throw new IllegalArgumentException(e.getMessage());
         }
     }
@@ -44,7 +46,7 @@ public class JsonUtil {
         try {
             return OBJECT_MAPPER.readValue(inputStream, clazz);
         } catch (IOException e) {
-            log.error("json格式化异常", e);
+            LOGGER.log(Level.SEVERE, "json转对象异常", e);
             throw new IllegalArgumentException(e.getMessage());
         }
     }
@@ -53,7 +55,7 @@ public class JsonUtil {
         try {
             return OBJECT_MAPPER.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
-            log.error("json格式化异常", e);
+            LOGGER.log(Level.SEVERE, "对象转json异常", e);
             throw new IllegalArgumentException(e.getMessage());
         }
     }

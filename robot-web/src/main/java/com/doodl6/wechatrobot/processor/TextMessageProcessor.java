@@ -10,13 +10,15 @@ import com.doodl6.wechatrobot.service.KeywordService;
 import com.doodl6.wechatrobot.service.TulingService;
 import com.doodl6.wechatrobot.util.LogUtil;
 import io.vertx.core.Vertx;
-import lombok.extern.slf4j.Slf4j;
+
+import java.util.logging.Logger;
 
 /**
  * 文本类型消息处理类
  */
-@Slf4j
 public class TextMessageProcessor implements WeChatMessageProcessor {
+
+    private static final Logger LOGGER = Logger.getLogger(TextMessageProcessor.class.getName());
 
     private final KeywordService keywordService;
 
@@ -38,7 +40,7 @@ public class TextMessageProcessor implements WeChatMessageProcessor {
     @Override
     public BaseMessage processMessage(WeChatMessage weChatMessage) {
 
-        log.info(LogUtil.buildLog("收到用户文本信息", weChatMessage));
+        LOGGER.info(LogUtil.buildLog("收到用户文本信息", weChatMessage));
 
         String fromUserName = weChatMessage.getFromUserName();
         String toUserName = weChatMessage.getToUserName();
