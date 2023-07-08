@@ -33,10 +33,17 @@ public class MainVerticle extends AbstractVerticle {
             Route messageRoute = router.route("/weChat/receiveMessage");
             messageRoute.handler(new MainHandler(vertx, webConfig.getWechat(), webConfig.getKeyword()));
 
+            int port = webConfig.getApp().getPort();
             vertx.createHttpServer()
                     .requestHandler(router)
-                    .listen(webConfig.getApp().getPort())
-                    .onSuccess(server -> log.info("HTTP server started on port " + server.actualPort()));
+                    .listen(port, listen -> {
+                        if (listen.succeeded()) {
+                            log.info("HTTP server started on port " + port);
+                        } else {
+                            listen.cause().printStackTrace();
+                            System.exit(1);
+                        }
+                    });
         } catch (Throwable e) {
             e.printStackTrace();
         }
