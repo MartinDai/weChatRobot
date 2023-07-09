@@ -102,6 +102,8 @@ docker build -f docker/Dockerfile --no-cache -t wechatrobot:latest .
 docker buildx build -f docker/Dockerfile --no-cache -t wechatrobot:latest --platform=linux/amd64 -o type=docker .
 ```
 
+如果需要构建native-image的镜像，替换上面命令中的`docker/Dockerfile`为`docker/native-image-Dockerfile`即可
+
 后台运行镜像
 
 ```shell
