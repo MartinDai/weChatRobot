@@ -3,7 +3,7 @@ FROM maven:3.8.4-jdk-8-slim as builder
 COPY . /src/weChatRobot
 COPY ./docker/settings-docker.xml /usr/share/maven/ref/
 WORKDIR /src/weChatRobot
-RUN mvn package -s /usr/share/maven/ref/settings-docker.xml dependency:resolve
+RUN mvn package -s /usr/share/maven/ref/settings-docker.xml
 
 FROM openjdk:8-alpine
 
