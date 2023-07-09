@@ -9,11 +9,11 @@ FROM openjdk:8-alpine
 
 USER root
 
-COPY --from=builder /src/weChatRobot/robot-web/target/weChatRobot.jar /weChatRobot/
+COPY --from=builder /src/weChatRobot/robot-web/target/weChatRobot.jar /app/
 COPY ./docker/start.sh /weChatRobot/
 
 RUN chmod +x /weChatRobot/start.sh
 
 EXPOSE 8080
-WORKDIR /weChatRobot
+WORKDIR /app
 ENTRYPOINT [ "sh", "start.sh" ]

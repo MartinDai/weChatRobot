@@ -96,6 +96,7 @@
                                 -H:IncludeResources=keyword_version.txt
                                 -H:ReflectionConfigurationFiles=classes/reflect.json
                                 --no-fallback
+                                --initialize-at-run-time=io.netty.handler.codec.compression.ZstdOptions
                             </buildArgs>
                         </configuration>
                     </plugin>

@@ -46,7 +46,7 @@ _Tips:1.2版本开始使用Vert.x替换SpringBoot_
 
 maven编译打包
 
-```
+```shell
 mvn clean package
 ```
 
@@ -74,7 +74,7 @@ nohup java -jar weChatRobot.jar > ./console.log 2>&1 &
 
 ### native-image运行
 
-构建native-image
+构建native-image(需要[graalvm版本的jdk](https://www.graalvm.org/downloads/))
 
 ```shell
 mvn clean package -P native-image
@@ -92,19 +92,19 @@ mvn clean package -P native-image
 
 构建适用于当前操作系统架构的镜像
 
-```
+```shell
 docker build -f docker/Dockerfile --no-cache -t wechatrobot:latest .
 ```
 
 构建指定架构的镜像
 
-```
+```shell
 docker buildx build -f docker/Dockerfile --no-cache -t wechatrobot:latest --platform=linux/amd64 -o type=docker .
 ```
 
 后台运行镜像
 
-```
+```shell
 docker run --name wechatrobot -p 8080:8080 -d wechatrobot:latest
 ```
 
