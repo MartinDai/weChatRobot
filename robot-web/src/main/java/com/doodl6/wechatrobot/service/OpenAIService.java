@@ -20,11 +20,13 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 
-public class ChatGptService {
+public class OpenAIService {
 
     private static final String OPENAI_API_KEY = "OPENAI_API_KEY";
 
     private static final String OPENAI_BASE_DOMAIN = "OPENAI_BASE_DOMAIN";
+
+    private static final String OPENAI_SERVER_URL = "OPENAI_SERVER_URL";
 
     private static final String OPENAI_PROXY = "OPENAI_PROXY";
 
@@ -32,7 +34,7 @@ public class ChatGptService {
 
     private static OpenAiService openAiService;
 
-    public ChatGptService() {
+    public OpenAIService() {
         String apiKey = PropertyUtil.getProperty(OPENAI_API_KEY);
         if (StringUtils.isBlank(apiKey)) {
             return;
@@ -55,14 +57,19 @@ public class ChatGptService {
         ObjectMapper mapper = OpenAiService.defaultObjectMapper();
         Retrofit.Builder retrofitBuilder = OpenAiService.defaultRetrofit(client, mapper).newBuilder();
 
-        String baseDomain = PropertyUtil.getProperty(OPENAI_BASE_DOMAIN);
-        if (StringUtils.isNotBlank(baseDomain)) {
-            boolean valid = AddressUtil.validateAddress(baseDomain);
-            if (!valid) {
-                throw new RuntimeException("OPENAI_BASE_DOMAIN is not valid, value:" + baseDomain);
-            }
+        String serverUrl = PropertyUtil.getProperty(OPENAI_SERVER_URL);
+        if (StringUtils.isNotBlank(serverUrl)) {
+            retrofitBuilder.baseUrl(serverUrl);
+        } else {
+            String baseDomain = PropertyUtil.getProperty(OPENAI_BASE_DOMAIN);
+            if (StringUtils.isNotBlank(baseDomain)) {
+                boolean valid = AddressUtil.validateAddress(baseDomain);
+                if (!valid) {
+                    throw new RuntimeException("OPENAI_BASE_DOMAIN is not valid, value:" + baseDomain);
+                }
 
-            retrofitBuilder.baseUrl("https://" + baseDomain + "/");
+                retrofitBuilder.baseUrl("https://" + baseDomain + "/");
+            }
         }
 
         Retrofit retrofit = retrofitBuilder.build();

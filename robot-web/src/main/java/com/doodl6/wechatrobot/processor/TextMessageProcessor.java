@@ -5,7 +5,7 @@ import com.doodl6.wechatrobot.domain.WeChatMessage;
 import com.doodl6.wechatrobot.enums.WeChatMsgType;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
-import com.doodl6.wechatrobot.service.ChatGptService;
+import com.doodl6.wechatrobot.service.OpenAIService;
 import com.doodl6.wechatrobot.service.KeywordService;
 import com.doodl6.wechatrobot.service.TulingService;
 import com.doodl6.wechatrobot.util.LogUtil;
@@ -22,13 +22,13 @@ public class TextMessageProcessor implements WeChatMessageProcessor {
 
     private final KeywordService keywordService;
 
-    private final ChatGptService chatGptService;
+    private final OpenAIService openAIService;
 
     private final TulingService tulingService;
 
     public TextMessageProcessor(Vertx vertx, KeywordConfig keywordConfig) {
         this.keywordService = new KeywordService(vertx, keywordConfig);
-        this.chatGptService = new ChatGptService();
+        this.openAIService = new OpenAIService();
         this.tulingService = new TulingService();
     }
 
@@ -51,7 +51,7 @@ public class TextMessageProcessor implements WeChatMessageProcessor {
 
         //再尝试从GPT获取响应
         if (message == null) {
-            message = chatGptService.getResponse(content);
+            message = openAIService.getResponse(content);
         }
 
         //再尝试从图灵机器人获取响应
