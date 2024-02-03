@@ -1,6 +1,5 @@
-FROM container-registry.oracle.com/graalvm/community:ol7-java17-22.3.2-b1 as builder
+FROM container-registry.oracle.com/graalvm/graalvm-community:21.0.1-ol7-20231024 as builder
 
-RUN gu install native-image
 RUN yum install wget -y
 RUN wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.6/apache-maven-3.8.6-bin.tar.gz -P /tmp
 RUN tar xf /tmp/apache-maven-3.8.6-bin.tar.gz -C /opt

@@ -97,6 +97,7 @@
                                 -H:ReflectionConfigurationFiles=classes/reflect.json
                                 --no-fallback
                                 --initialize-at-run-time=io.netty.handler.codec.compression.ZstdOptions
+                                --initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils
                             </buildArgs>
                         </configuration>
                     </plugin>
