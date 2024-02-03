@@ -9,12 +9,14 @@ import io.vertx.config.ConfigStoreOptions;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,7 +60,10 @@ public class MainVerticle extends AbstractVerticle {
             configPath = "config.yml";
         }
 
-        Vertx vertx = Vertx.vertx();
+      VertxOptions options = new VertxOptions();
+      // 设置事件循环线程的最大执行时间
+      options.setMaxEventLoopExecuteTime(TimeUnit.SECONDS.toNanos(10));
+      Vertx vertx = Vertx.vertx(options);
         ConfigStoreOptions storeOptions = new ConfigStoreOptions()
                 .setType("file")
                 .setFormat("yaml")
@@ -70,8 +75,8 @@ public class MainVerticle extends AbstractVerticle {
         retriever.getConfig()
                 .onSuccess(config -> {
                     System.out.println("load config success:" + config.toString());
-                    DeploymentOptions options = new DeploymentOptions().setConfig(config);
-                    vertx.deployVerticle(new MainVerticle(), options);
+                    DeploymentOptions deploymentOptions = new DeploymentOptions().setConfig(config);
+                    vertx.deployVerticle(new MainVerticle(), deploymentOptions);
                 })
                 .onFailure(Throwable::printStackTrace);
     }
