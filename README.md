@@ -1,6 +1,6 @@
 # weChatRobot
 
-一个基于微信公众号的智能聊天机器人项目，支持图灵机器人(V2)和ChatGPT对话模式回复内容
+一个基于微信公众号的智能聊天机器人项目，支持根据关键字或者调用OpenAI、通义千问等大语言模型服务回复内容。
 
 [![License](https://img.shields.io/github/license/martindai/wechatRobot)](LICENSE)
 
