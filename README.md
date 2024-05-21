@@ -34,9 +34,9 @@ _Tips:1.2版本开始使用Vert.x替换SpringBoot_
 
 需要有微信公众号的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)
 
-内容响应来源的优先级`自定义关键 > OpenAI > 通义千问 > 图灵机器人`
+内容响应来源的优先级`自定义关键字 > OpenAI > 通义千问 > 图灵机器人`
 
-在微信公众号后台配置回调URL为<https://wechatrobot.doodl6.com/weChat/receiveMessage>，其中`wechatrobot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可
+在微信公众号后台配置回调URL为<https://<your.domain>/weChat/receiveMessage>，其中`<your.domain>`替换成你自己的域名，token与`config.yml`里面配置的保持一致即可
 
 ### OpenAI
 
