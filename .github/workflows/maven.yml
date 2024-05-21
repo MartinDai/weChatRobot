@@ -19,9 +19,3 @@ jobs:
         cache: 'maven'
     - name: build jar
       run: mvn -B package --file pom.xml
-    - uses: graalvm/setup-graalvm@v1
-      with:
-        java-version: '17.0.7'
-        distribution: 'graalvm'
-    - name: build native image
-      run: mvn -B package -P native-image --file pom.xml

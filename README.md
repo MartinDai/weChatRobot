@@ -89,22 +89,6 @@ nohup java -jar weChatRobot.jar > ./console.log 2>&1 &
 
 在执行命令的当前目录查看console日志
 
-### native-image运行
-
-构建native-image(需要[graalvm版本的jdk](https://www.graalvm.org/downloads/))
-
-```shell
-mvn clean package -P native-image
-```
-
-构建完成后，在robot-web/target目录会生成weChatRobot可执行文件，可以直接运行
-
-```shell
-./weChatRobot
-```
-
-**注意：native-image不支持通过-D指定配置**
-
 ### Docker运行
 
 构建适用于当前操作系统架构的镜像
@@ -118,8 +102,6 @@ docker build -f docker/Dockerfile --no-cache -t wechatrobot:latest .
 ```shell
 docker buildx build -f docker/Dockerfile --no-cache -t wechatrobot:latest --platform=linux/amd64 -o type=docker .
 ```
-
-如果需要构建native-image的镜像，替换上面命令中的`docker/Dockerfile`为`docker/native-image-Dockerfile`即可
 
 后台运行镜像
 

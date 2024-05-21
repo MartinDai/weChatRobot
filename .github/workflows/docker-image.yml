@@ -13,5 +13,3 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build the Docker image
         run: docker build -f docker/Dockerfile -t wechatrobot:$(date +%s) .
-      - name: Build the native-image Docker image
-        run: docker build -f docker/native-image-Dockerfile -t wechatrobot-native:$(date +%s) .

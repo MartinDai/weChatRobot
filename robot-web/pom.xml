@@ -72,45 +72,6 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>native-image</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.graalvm.nativeimage</groupId>
-                        <artifactId>native-image-maven-plugin</artifactId>
-                        <version>21.2.0</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <imageName>weChatRobot</imageName>
-                            <mainClass>com.doodl6.wechatrobot.MainVerticle</mainClass>
-                            <buildArgs>
-                                -H:+PrintClassInitialization
-                                -H:+ReportExceptionStackTraces
-                                -H:IncludeResources=static/index.html
-                                -H:IncludeResources=static/images/qrcode.jpg
-                                -H:IncludeResources=config.yml
-                                -H:IncludeResources=keyword.json
-                                -H:IncludeResources=keyword_version.txt
-                                -H:ReflectionConfigurationFiles=classes/reflect.json
-                                --no-fallback
-                                --initialize-at-run-time=io.netty.handler.codec.compression.ZstdOptions
-                                --initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils
-                            </buildArgs>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
-
-
 
 </project>
