@@ -1,5 +1,6 @@
 package com.doodl6.wechatrobot.util;
 
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -7,12 +8,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+@Slf4j
 public final class HttpUtil {
-
-    private static final Logger LOGGER = Logger.getLogger(HttpUtil.class.getName());
 
     public static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 
@@ -43,7 +40,7 @@ public final class HttpUtil {
                 return responseBody.string();
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "api调用异常，url:" + request.url(), e);
+            log.error("api调用异常，url:{}", request.url(), e);
             throw new RuntimeException(e);
         }
     }

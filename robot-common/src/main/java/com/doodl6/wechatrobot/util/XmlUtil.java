@@ -1,14 +1,12 @@
 package com.doodl6.wechatrobot.util;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@Slf4j
 public class XmlUtil {
-
-    private static final Logger LOGGER = Logger.getLogger(XmlUtil.class.getName());
 
     private static final XmlMapper XML_MAPPER = new XmlMapper();
 
@@ -16,7 +14,7 @@ public class XmlUtil {
         try {
             return XML_MAPPER.readValue(xml, clazz);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "xml转clazz异常", e);
+            log.error("xml转clazz异常", e);
             throw new IllegalArgumentException(e.getMessage());
         }
     }
@@ -25,7 +23,7 @@ public class XmlUtil {
         try {
             return XML_MAPPER.writeValueAsString(obj);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "obj转xml异常", e);
+            log.error("obj转xml异常", e);
             throw new IllegalArgumentException(e.getMessage());
         }
     }

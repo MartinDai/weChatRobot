@@ -1,9 +1,10 @@
-package com.doodl6.wechatrobot.service;
+package com.doodl6.wechatrobot.service.assistant.impl;
 
 import com.doodl6.wechatrobot.constant.TulingConstants;
 import com.doodl6.wechatrobot.domain.TulingTextReq;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
+import com.doodl6.wechatrobot.service.assistant.AssistantService;
 import com.doodl6.wechatrobot.util.HttpUtil;
 import com.doodl6.wechatrobot.util.JsonUtil;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,7 +17,7 @@ import java.util.Iterator;
 /**
  * 图灵服务类
  */
-public class TulingService {
+public class TulingService implements AssistantService {
 
     private static final String API_URL = "http://openapi.turingapi.com/openapi/api/v2";
 
@@ -34,7 +35,8 @@ public class TulingService {
     /**
      * 获取消息响应
      */
-    public BaseMessage getResponse(String content, String fromUserName) {
+    @Override
+    public BaseMessage processText(String content, String fromUserName) {
         if (StringUtils.isBlank(API_KEY)) {
             return null;
         }

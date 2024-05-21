@@ -10,7 +10,7 @@
 
 ## 项目介绍：
 
-  本项目是一个微信公众号项目，需配合微信公众号使用，在微信公众号配置本项目运行的服务器域名，用户关注公众号后，向公众号发送任意信息，公众号会根据用户发送的内容自动回复。
+本项目是一个微信公众号项目，需配合微信公众号使用，在微信公众号配置本项目运行的服务器域名，用户关注公众号后，向公众号发送任意信息，公众号会根据用户发送的内容自动回复。
   
 ## 涉及框架及技术
 
@@ -25,20 +25,33 @@ _Tips:1.2版本开始使用Vert.x替换SpringBoot_
 ## 支持的功能
 
 + [x] 自定义关键字回复内容
-+ [x] 调用ChatGPT接口回复内容（需配置启动参数或者环境变量：`OPENAI_API_KEY`）
-+ [x] 调用OPENAI规范的接口回复内容（需配置启动参数或者环境变量：`OPENAI_SERVER_URL`）
-+ [x] 调用图灵机器人(V2)接口回复内容（需配置启动参数或者环境变量：`TULING_API_KEY`）
++ [x] 调用OpenAI接口回复内容（配置启动参数或者环境变量：`OPENAI_API_KEY`）
++ [x] 修改OpenAI的接口地址（配置启动参数或者环境变量：`OPENAI_SERVER_URL`）
++ [x] 调用通义千问接口回复内容（配置启动参数或者环境变量：`DASHSCOPE_API_KEY`）
++ [x] 调用图灵机器人(V2)接口回复内容（配置启动参数或者环境变量：`TULING_API_KEY`）
 
-## 使用说明：
+## 使用说明
 
-1. 使用之前需要有微信公众号的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)
-2. 如果需要使用图灵机器人的回复内容则需要[注册图灵机器人帐号](http://tuling123.com/register/email.jhtml)获取相应的ApiKey并配置在启动参数或者环境变量中
-3. 如果需要使用ChatGPT的回复内容则需要[创建OpenAI的API Key](https://platform.openai.com/account/api-keys)并配置在启动参数或者环境变量中
-4. 可以通过配置启动参数或者环境变量`OPENAI_SERVER_URL`指定访问OpenAI服务的baseUrl
-5. 可以通过配置启动参数或者环境变量`OPENAI_BASE_DOMAIN`更换访问OpenAI的域名
-6. 可以通过配置启动参数或者环境变量`OPENAI_PROXY`使用代理服务访问OpenAI
-7. 内容响应来源的优先级`自定义关键 > ChatGPT > 图灵机器人`
-8. 在微信公众号后台配置回调URL为<https://wechatrobot.doodl6.com/weChat/receiveMessage>，其中`wechatrobot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可
+需要有微信公众号的帐号，没有的请戳[微信公众号申请](https://mp.weixin.qq.com/cgi-bin/readtemplate?t=register/step1_tmpl&lang=zh_CN)
+
+内容响应来源的优先级`自定义关键 > OpenAI > 通义千问 > 图灵机器人`
+
+在微信公众号后台配置回调URL为<https://wechatrobot.doodl6.com/weChat/receiveMessage>，其中`wechatrobot.doodl6.com`是你自己的域名，token与`config.yml`里面配置的保持一致即可
+
+### OpenAI
+
+1. 如果需要使用OpenAI的回复内容则需要[创建OpenAI的API Key](https://platform.openai.com/account/api-keys)并配置在启动参数或者环境变量中
+2. 可以通过配置启动参数或者环境变量`OPENAI_SERVER_URL`指定访问OpenAI服务的baseUrl
+3. 可以通过配置启动参数或者环境变量`OPENAI_BASE_DOMAIN`更换访问OpenAI的域名(优先级低于`OPENAI_SERVER_URL`)
+4. 可以通过配置启动参数或者环境变量`OPENAI_PROXY`使用代理服务访问OpenAI
+
+### 通义千问
+
+如果需要使用通义千问的回复内容则需要[创建通义千问的API Key](https://bailian.console.aliyun.com/#/api_key)并配置在启动参数或者环境变量中
+
+### 图灵机器人
+
+如果需要使用图灵机器人的回复内容则需要[注册图灵机器人帐号](http://tuling123.com/register/email.jhtml)获取相应的ApiKey并配置在启动参数或者环境变量中
 
 ## 开发部署
 

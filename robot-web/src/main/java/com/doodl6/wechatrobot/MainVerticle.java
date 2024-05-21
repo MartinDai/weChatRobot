@@ -14,15 +14,13 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@Slf4j
 public class MainVerticle extends AbstractVerticle {
-
-    private static final Logger LOGGER = Logger.getLogger(MainVerticle.class.getName());
 
     private static final String CONFIG_KEY = "config";
 
@@ -43,7 +41,7 @@ public class MainVerticle extends AbstractVerticle {
                     .requestHandler(router)
                     .listen(port, listen -> {
                         if (listen.succeeded()) {
-                            LOGGER.log(Level.INFO,"HTTP server started on port " + port);
+                            log.info("HTTP server started on port: {}", port);
                         } else {
                             listen.cause().printStackTrace();
                             System.exit(1);
@@ -60,10 +58,10 @@ public class MainVerticle extends AbstractVerticle {
             configPath = "config.yml";
         }
 
-      VertxOptions options = new VertxOptions();
-      // 设置事件循环线程的最大执行时间
-      options.setMaxEventLoopExecuteTime(TimeUnit.SECONDS.toNanos(10));
-      Vertx vertx = Vertx.vertx(options);
+        VertxOptions options = new VertxOptions();
+        // 设置事件循环线程的最大执行时间
+        options.setMaxEventLoopExecuteTime(TimeUnit.SECONDS.toNanos(10));
+        Vertx vertx = Vertx.vertx(options);
         ConfigStoreOptions storeOptions = new ConfigStoreOptions()
                 .setType("file")
                 .setFormat("yaml")
@@ -74,7 +72,7 @@ public class MainVerticle extends AbstractVerticle {
         ConfigRetriever retriever = ConfigRetriever.create(vertx, retrieverOptions);
         retriever.getConfig()
                 .onSuccess(config -> {
-                    System.out.println("load config success:" + config.toString());
+                    log.info("load config success:{}", config.toString());
                     DeploymentOptions deploymentOptions = new DeploymentOptions().setConfig(config);
                     vertx.deployVerticle(new MainVerticle(), deploymentOptions);
                 })

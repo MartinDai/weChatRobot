@@ -7,6 +7,7 @@ import com.doodl6.wechatrobot.processor.WeChatMessageProcessor;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
 import com.doodl6.wechatrobot.util.XmlUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -14,16 +15,13 @@ import java.util.Arrays;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
  * 微信服务类
  */
+@Slf4j
 public class WeChatService {
-
-    private static final Logger LOGGER = Logger.getLogger(WeChatService.class.getName());
 
     private final WechatConfig wechatConfig;
 
@@ -55,7 +53,7 @@ public class WeChatService {
             tmpStr = byteToHex(digest);
             return tmpStr.equals(signature);
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "校验签名异常", e);
+            log.error("校验签名异常", e);
         }
         return false;
     }
@@ -77,7 +75,7 @@ public class WeChatService {
                 resultMessage = weChatMessageHandle.processMessage(weChatMessage);
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "处理来至微信服务器的消息出现错误", e);
+            log.error("处理来至微信服务器的消息出现错误", e);
             resultMessage = new TextMessage(toUserName, fromUserName, "我竟无言以对！");
         }
 

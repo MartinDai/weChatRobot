@@ -5,31 +5,32 @@ import com.doodl6.wechatrobot.domain.WeChatMessage;
 import com.doodl6.wechatrobot.enums.WeChatMsgType;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
-import com.doodl6.wechatrobot.service.OpenAIService;
-import com.doodl6.wechatrobot.service.KeywordService;
-import com.doodl6.wechatrobot.service.TulingService;
-import com.doodl6.wechatrobot.util.LogUtil;
+import com.doodl6.wechatrobot.service.assistant.AssistantService;
+import com.doodl6.wechatrobot.service.assistant.impl.DashscopeService;
+import com.doodl6.wechatrobot.service.assistant.impl.KeywordService;
+import com.doodl6.wechatrobot.service.assistant.impl.OpenAIService;
+import com.doodl6.wechatrobot.service.assistant.impl.TulingService;
+import com.doodl6.wechatrobot.util.JsonUtil;
+import com.google.common.collect.Lists;
 import io.vertx.core.Vertx;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.logging.Logger;
+import java.util.List;
 
 /**
  * 文本类型消息处理类
  */
+@Slf4j
 public class TextMessageProcessor implements WeChatMessageProcessor {
 
-    private static final Logger LOGGER = Logger.getLogger(TextMessageProcessor.class.getName());
-
-    private final KeywordService keywordService;
-
-    private final OpenAIService openAIService;
-
-    private final TulingService tulingService;
+    private final List<AssistantService> assistantServiceList;
 
     public TextMessageProcessor(Vertx vertx, KeywordConfig keywordConfig) {
-        this.keywordService = new KeywordService(vertx, keywordConfig);
-        this.openAIService = new OpenAIService();
-        this.tulingService = new TulingService();
+        this.assistantServiceList = Lists.newLinkedList();
+        assistantServiceList.add(new KeywordService(vertx, keywordConfig));
+        assistantServiceList.add(new OpenAIService());
+        assistantServiceList.add(new DashscopeService());
+        assistantServiceList.add(new TulingService());
     }
 
     @Override
@@ -40,23 +41,17 @@ public class TextMessageProcessor implements WeChatMessageProcessor {
     @Override
     public BaseMessage processMessage(WeChatMessage weChatMessage) {
 
-        LOGGER.info(LogUtil.buildLog("收到用户文本信息", weChatMessage));
+        log.info("收到用户文本信息: {}", JsonUtil.objToJson(weChatMessage));
 
         String fromUserName = weChatMessage.getFromUserName();
         String toUserName = weChatMessage.getToUserName();
         String content = weChatMessage.getContent();
-
-        //优先查找关键字配置
-        BaseMessage message = keywordService.getMessageByKeyword(content);
-
-        //再尝试从GPT获取响应
-        if (message == null) {
-            message = openAIService.getResponse(content);
-        }
-
-        //再尝试从图灵机器人获取响应
-        if (message == null) {
-            message = tulingService.getResponse(content, fromUserName);
+        BaseMessage message = null;
+        for (AssistantService assistantService : assistantServiceList) {
+            message = assistantService.processText(content, fromUserName);
+            if (message != null) {
+                break;
+            }
         }
 
         //最后返回收到的文本信息作为兜底

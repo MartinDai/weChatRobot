@@ -1,14 +1,16 @@
-package com.doodl6.wechatrobot.service;
+package com.doodl6.wechatrobot.service.assistant.impl;
 
 import com.doodl6.wechatrobot.config.KeywordConfig;
 import com.doodl6.wechatrobot.response.BaseMessage;
 import com.doodl6.wechatrobot.response.NewsMessage;
 import com.doodl6.wechatrobot.response.TextMessage;
+import com.doodl6.wechatrobot.service.assistant.AssistantService;
 import com.doodl6.wechatrobot.util.HttpUtil;
 import com.doodl6.wechatrobot.util.JsonUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Maps;
 import io.vertx.core.Vertx;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.StandardCharsets;
@@ -19,15 +21,12 @@ import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * 关键字服务类
  */
-public class KeywordService {
-
-    private static final Logger LOGGER = Logger.getLogger(KeywordService.class.getName());
+@Slf4j
+public class KeywordService implements AssistantService {
 
     /**
      * 当前配置的版本
@@ -62,7 +61,8 @@ public class KeywordService {
         return thread;
     });
 
-    public BaseMessage getMessageByKeyword(String keyword) {
+    @Override
+    public BaseMessage processText(String keyword, String fromUserName) {
         JsonNode messageJsonNode = keywordMessageMap.get(keyword);
         if (messageJsonNode == null) {
             return null;
@@ -108,7 +108,7 @@ public class KeywordService {
             replaceKeywordMessageMap(newVersion, messageConfigStr);
 
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "根据Http请求获取关键字配置信息异常", e);
+            log.error("根据Http请求获取关键字配置信息异常", e);
         }
     }
 
@@ -121,7 +121,7 @@ public class KeywordService {
             String keyword = entry.getKey();
             JsonNode messageJsonNode = entry.getValue();
             newKeywordMessageMap.put(keyword, messageJsonNode);
-            LOGGER.log(Level.INFO,"初始化关键字map，{0} : {1}", new Object[]{keyword, messageJsonNode.toString()});
+            log.info("初始化关键字map，{} : {}", keyword, messageJsonNode.toString());
         }
         currentConfigVersion = newVersion;
         keywordMessageMap = newKeywordMessageMap;

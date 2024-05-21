@@ -5,7 +5,6 @@ import com.doodl6.wechatrobot.config.WechatConfig;
 import com.doodl6.wechatrobot.processor.EventMessageProcessor;
 import com.doodl6.wechatrobot.processor.TextMessageProcessor;
 import com.doodl6.wechatrobot.processor.WeChatMessageProcessor;
-import com.doodl6.wechatrobot.service.KeywordService;
 import com.doodl6.wechatrobot.service.WeChatService;
 import com.doodl6.wechatrobot.util.XmlUtil;
 import com.google.common.collect.Lists;
@@ -15,15 +14,13 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.ext.web.RoutingContext;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@Slf4j
 public class MainHandler implements Handler<RoutingContext> {
-
-    private static final Logger LOGGER = Logger.getLogger(KeywordService.class.getName());
 
     private final WeChatService weChatService;
 
@@ -50,17 +47,18 @@ public class MainHandler implements Handler<RoutingContext> {
             }
         } else {
             request.bodyHandler(body -> {
+                long start = System.currentTimeMillis();
                 String requestBody = body.toString();
                 Object result;
                 try {
                     result = weChatService.processReceived(requestBody);
                 } catch (Exception e) {
-                    LOGGER.log(Level.SEVERE, "获取来自微信的消息异常", e);
+                    log.error("获取来自微信的消息异常", e);
                     result = StringUtils.EMPTY;
                 }
                 this.responseXml(context, result);
+                log.info("响应耗时：{}ms", (System.currentTimeMillis() - start));
             });
-
         }
     }
 
