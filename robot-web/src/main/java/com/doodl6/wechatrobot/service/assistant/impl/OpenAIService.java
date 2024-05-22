@@ -89,7 +89,7 @@ public class OpenAIService implements AssistantService {
 
         ChatMessage systemMsg = new ChatMessage();
         systemMsg.setRole("system");
-        systemMsg.setContent("你是一个AI助手，保持回复内容尽量简短");
+        systemMsg.setContent("你是一个AI助手，尽量保证回复内容在200个字符以内");
 
         ChatMessage userMsg = new ChatMessage();
         userMsg.setRole("user");

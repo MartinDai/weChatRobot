@@ -34,7 +34,7 @@ public class DashscopeService implements AssistantService {
 
         try {
             Generation gen = new Generation();
-            Message systemMsg = Message.builder().role(Role.SYSTEM.getValue()).content("你是一个AI助手，保持回复内容尽量简短").build();
+            Message systemMsg = Message.builder().role(Role.SYSTEM.getValue()).content("你是一个AI助手，尽量保证回复内容在200个字符以内").build();
             Message userMsg = Message.builder().role(Role.USER.getValue()).content(content).build();
             GenerationParam param =
                     GenerationParam.builder().model(Generation.Models.QWEN_TURBO).messages(Lists.newArrayList(systemMsg, userMsg))
