@@ -112,3 +112,7 @@ docker run --name wechatrobot -p 8080:8080 -d wechatrobot:latest
 ## 感谢赞助
 
 [<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" width="140" height="140" alt="jetbrains"/>](https://www.jetbrains.com/community/opensource/#support)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=MartinDai/weChatRobot&type=Date)](https://star-history.com/#MartinDai/weChatRobot&Date)
