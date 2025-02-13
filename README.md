@@ -2,6 +2,7 @@
 
 一个基于微信公众号的智能聊天机器人项目，支持根据关键字或者调用OpenAI、通义千问等大语言模型服务回复内容。
 
+[![Release](https://img.shields.io/github/v/release/martindai/wechatRobot?color=369eff&labelColor=black&logo=github&style=flat-square)](https://github.com/martindai/wechatRobot/releases)
 [![License](https://img.shields.io/github/license/martindai/wechatRobot)](LICENSE)
 
 本项目还有Go实现的版本：<https://github.com/MartinDai/weChatRobot-go>
